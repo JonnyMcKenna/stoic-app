@@ -1,58 +1,59 @@
-import * as WebBrowser from 'expo-web-browser';
-import React from 'react';
-import { StyleSheet, TouchableOpacity } from 'react-native';
+import React, { Fragment, useEffect, useState } from "react";
+import { Button, ScrollView, StyleSheet } from "react-native";
+import NewButton from "./NewButton";
+import { Text, View } from "./Themed";
 
-import Colors from '../constants/Colors';
-import { MonoText } from './StyledText';
-import { Text, View } from './Themed';
+export default function EditScreenInfo() {
+  interface QuoteProps {
+    text: string;
+    author: string;
+  }
 
-export default function EditScreenInfo({ path }: { path: string }) {
+  const [quote, setQuote] = useState<QuoteProps>();
+
+  var data = require("../quotes.json");
+
+  useEffect(() => {
+    const retrievedQuotes = data.quotes;
+    const randomIndex = Math.floor(Math.random() * retrievedQuotes.length);
+    setQuote(retrievedQuotes[randomIndex]);
+  }, []);
+
+  function updateQuote() {
+    const retrievedQuotes = data.quotes;
+    const randomIndex = Math.floor(Math.random() * retrievedQuotes.length);
+    setQuote(retrievedQuotes[randomIndex]);
+  }
+
   return (
-    <View>
+    <ScrollView style={styles.scrollViewStyle}>
       <View style={styles.getStartedContainer}>
-        <Text
-          style={styles.getStartedText}
-          lightColor="rgba(0,0,0,0.8)"
-          darkColor="rgba(255,255,255,0.8)">
-          Open up the code for this screen:
-        </Text>
-
         <View
           style={[styles.codeHighlightContainer, styles.homeScreenFilename]}
           darkColor="rgba(255,255,255,0.05)"
-          lightColor="rgba(0,0,0,0.05)">
-          <MonoText>{path}</MonoText>
-        </View>
-
-        <Text
-          style={styles.getStartedText}
-          lightColor="rgba(0,0,0,0.8)"
-          darkColor="rgba(255,255,255,0.8)">
-          Change any of the text, save the file, and your app will automatically update.
-        </Text>
+          lightColor="rgba(0,0,0,0.05)"
+        ></View>
       </View>
 
-      <View style={styles.helpContainer}>
-        <TouchableOpacity onPress={handleHelpPress} style={styles.helpLink}>
-          <Text style={styles.helpLinkText} lightColor={Colors.light.tint}>
-            Tap here if your app doesn't automatically update after making changes
-          </Text>
-        </TouchableOpacity>
+      <View style={styles.container}>
+        {quote && (
+          <Fragment>
+            <Text style={styles.quoteText}>"{quote.text}"</Text>
+            <Text style={styles.quoteAuthor}>{quote.author}</Text>
+            <NewButton onPress={updateQuote} title="Next Quote" />
+            {/* <Button onPress={updateQuote} title="Show More" /> */}
+          </Fragment>
+        )}
       </View>
-    </View>
-  );
-}
-
-function handleHelpPress() {
-  WebBrowser.openBrowserAsync(
-    'https://docs.expo.io/get-started/create-a-new-app/#opening-the-app-on-your-phonetablet'
+    </ScrollView>
   );
 }
 
 const styles = StyleSheet.create({
   getStartedContainer: {
-    alignItems: 'center',
+    alignItems: "center",
     marginHorizontal: 50,
+    backgroundColor: "black",
   },
   homeScreenFilename: {
     marginVertical: 7,
@@ -61,20 +62,40 @@ const styles = StyleSheet.create({
     borderRadius: 3,
     paddingHorizontal: 4,
   },
-  getStartedText: {
-    fontSize: 17,
-    lineHeight: 24,
-    textAlign: 'center',
-  },
   helpContainer: {
     marginTop: 15,
     marginHorizontal: 20,
-    alignItems: 'center',
+    alignItems: "center",
   },
   helpLink: {
     paddingVertical: 15,
   },
   helpLinkText: {
-    textAlign: 'center',
+    textAlign: "center",
   },
+  container: {
+    marginTop: 40,
+    flex: 1,
+    backgroundColor: "black",
+    // alignItems: "center",
+    // justifyContent: "center",
+    marginRight: 40,
+    marginLeft: 40,
+    marginBottom: 40,
+  },
+  quoteText: {
+    fontSize: 30,
+    textAlign: "left",
+    // maxWidth: "60%",
+    color: "white",
+  },
+  quoteAuthor: {
+    marginTop: 15,
+    marginBottom: 60,
+    fontSize: 24,
+    fontWeight: 600,
+    color: "#4f4f4f",
+    textAlign: "left",
+  },
+  scrollViewStyle: { flexGrow: 0 },
 });

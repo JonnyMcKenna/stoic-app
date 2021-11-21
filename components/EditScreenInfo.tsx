@@ -39,8 +39,8 @@ export default function EditScreenInfo() {
         {quote && (
           <Fragment>
             <Text style={styles.quoteText}>"{quote.text}"</Text>
-            <Text style={styles.quoteAuthor}>{quote.author}</Text>
-            <NewButton onPress={updateQuote} title="Next Quote" />
+            <Text style={styles.quoteAuthor}>- {quote.author}</Text>
+            <NewButton onPress={updateQuote} title="New Quote" />
             {/* <Button onPress={updateQuote} title="Show More" /> */}
           </Fragment>
         )}
@@ -53,7 +53,7 @@ const styles = StyleSheet.create({
   getStartedContainer: {
     alignItems: "center",
     marginHorizontal: 50,
-    backgroundColor: "black",
+    backgroundColor: "white",
   },
   homeScreenFilename: {
     marginVertical: 7,
@@ -76,7 +76,7 @@ const styles = StyleSheet.create({
   container: {
     marginTop: 40,
     flex: 1,
-    backgroundColor: "black",
+    backgroundColor: "white",
     // alignItems: "center",
     // justifyContent: "center",
     marginRight: 40,
@@ -84,17 +84,17 @@ const styles = StyleSheet.create({
     marginBottom: 40,
   },
   quoteText: {
-    fontSize: 30,
+    fontSize: 26,
     textAlign: "left",
     // maxWidth: "60%",
-    color: "white",
+    color: "black",
   },
   quoteAuthor: {
-    marginTop: 15,
-    marginBottom: 60,
-    fontSize: 24,
-    fontWeight: 600,
-    color: "#4f4f4f",
+    marginTop: 30,
+    marginBottom: 50,
+    fontSize: 18,
+    fontWeight: "600",
+    color: "#828282",
     textAlign: "left",
   },
   scrollViewStyle: { flexGrow: 0 },

@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { StyleSheet, Text, View, CheckBox } from "react-native";
+import { StyleSheet, Text, View } from "react-native";
 
 const SettingsRowComponent = ({
   heading,
@@ -28,8 +28,8 @@ const containerStyle = StyleSheet.create({
     marginTop: 30,
     flexDirection: "row",
   },
-  heading: { fontSize: 16, fontWeight: 500, color: "white" },
-  description: { fontSize: 14, fontWeight: 300, color: "gray" },
+  heading: { fontSize: 16, fontWeight: "500", color: "black" },
+  description: { fontSize: 14, fontWeight: "300", color: "gray" },
 });
 
 export default SettingsRowComponent;

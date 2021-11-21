@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { StyleSheet, Text, View, CheckBox } from "react-native";
+import { StyleSheet, Text, View } from "react-native";
 
 const SettingsRowChecklistComponent = ({
   heading,
@@ -16,9 +16,9 @@ const SettingsRowChecklistComponent = ({
         <Text style={containerStyle.heading}>{heading}</Text>
         <Text style={containerStyle.description}>{description}</Text>
       </View>
-      <View style={containerStyle.checkbox}>
+      {/* <View style={containerStyle.checkbox}>
         <CheckBox value={isSelected} onValueChange={setSelection} />
-      </View>
+      </View> */}
     </View>
   );
 };
@@ -30,10 +30,10 @@ const containerStyle = StyleSheet.create({
   },
   heading: { fontSize: 16, fontWeight: "500", color: "white" },
   description: { fontSize: 14, fontWeight: "300", color: "gray" },
-  checkbox: {
-    width: "20%",
-    justifyContent: "center",
-  },
+  // checkbox: {
+  //   width: "20%",
+  //   justifyContent: "center",
+  // },
 });
 
 export default SettingsRowChecklistComponent;

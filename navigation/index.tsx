@@ -78,8 +78,12 @@ function BottomTabNavigator() {
     <BottomTab.Navigator
       initialRouteName="TabOne"
       screenOptions={{
-        tabBarActiveTintColor: "white",
-        tabBarStyle: { backgroundColor: "black", height: 60 },
+        tabBarActiveTintColor: "black",
+        tabBarStyle: {
+          backgroundColor: "white",
+          height: "9%",
+          borderTopColor: "lightgray",
+        },
       }}
     >
       <BottomTab.Screen
@@ -88,39 +92,41 @@ function BottomTabNavigator() {
         options={({ navigation }: RootTabScreenProps<"TabOne">) => ({
           headerTitle: "Stoic Quotes",
           headerTitleStyle: {
-            fontSize: 24,
+            fontSize: 18,
             marginLeft: 24,
             marginTop: 10,
             marginBottom: 10,
             color: "white",
           },
           tabBarLabel: "",
-          headerStyle: { backgroundColor: "black" },
+          headerStyle: {
+            backgroundColor: "black",
+          },
           tabBarIcon: ({ color }) => <TabBarIcon name="home" color={color} />,
-          headerRight: () => (
-            <Pressable
-              onPress={() => navigation.navigate("Modal")}
-              style={({ pressed }) => ({
-                opacity: pressed ? 0.5 : 1,
-              })}
-            >
-              <FontAwesome
-                name="info-circle"
-                size={25}
-                color={Colors[colorScheme].text}
-                style={{ marginRight: 15 }}
-              />
-            </Pressable>
-          ),
+          // headerRight: () => (
+          //   <Pressable
+          //     onPress={() => navigation.navigate("Modal")}
+          //     style={({ pressed }) => ({
+          //       opacity: pressed ? 0.5 : 1,
+          //     })}
+          //   >
+          //     <FontAwesome
+          //       name="info-circle"
+          //       size={25}
+          //       color={Colors[colorScheme].text}
+          //       style={{ marginRight: 15 }}
+          //     />
+          //   </Pressable>
+          // ),
         })}
       />
       <BottomTab.Screen
         name="TabTwo"
         component={TabTwoScreen}
         options={{
-          headerTitle: "Stoic Quotes",
+          headerTitle: "Settings",
           headerTitleStyle: {
-            fontSize: 24,
+            fontSize: 18,
             marginLeft: 24,
             marginTop: 10,
             marginBottom: 10,
@@ -142,5 +148,5 @@ function TabBarIcon(props: {
   name: React.ComponentProps<typeof FontAwesome>["name"];
   color: string;
 }) {
-  return <FontAwesome size={30} style={{ marginBottom: -3 }} {...props} />;
+  return <FontAwesome size={26} style={{ marginBottom: -3 }} {...props} />;
 }

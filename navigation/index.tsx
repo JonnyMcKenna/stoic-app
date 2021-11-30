@@ -93,7 +93,6 @@ function BottomTabNavigator() {
           headerTitle: "Stoic Quotes",
           headerTitleStyle: {
             fontSize: 18,
-            marginLeft: 24,
             marginTop: 10,
             marginBottom: 10,
             color: "white",

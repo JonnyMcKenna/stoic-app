@@ -1,5 +1,5 @@
 import React from "react";
-import { Text, View, StyleSheet, Pressable } from "react-native";
+import { Text, StyleSheet, Pressable } from "react-native";
 
 export default function NewButton(props: any) {
   const { onPress, title = "Save" } = props;
@@ -17,7 +17,7 @@ const styles = StyleSheet.create({
     paddingVertical: 12,
     paddingHorizontal: 32,
     borderRadius: 8,
-    elevation: 3,
+    elevation: 5,
     backgroundColor: "black",
   },
   text: {
@@ -26,6 +26,5 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     letterSpacing: 0.25,
     color: "white",
-    // textTransform: "uppercase",
   },
 });

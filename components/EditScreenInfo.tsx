@@ -1,5 +1,5 @@
 import React, { Fragment, useEffect, useState } from "react";
-import { Button, ScrollView, StyleSheet } from "react-native";
+import { ScrollView, StyleSheet } from "react-native";
 import NewButton from "./NewButton";
 import { Text, View } from "./Themed";
 
@@ -41,7 +41,6 @@ export default function EditScreenInfo() {
             <Text style={styles.quoteText}>"{quote.text}"</Text>
             <Text style={styles.quoteAuthor}>- {quote.author}</Text>
             <NewButton onPress={updateQuote} title="New Quote" />
-            {/* <Button onPress={updateQuote} title="Show More" /> */}
           </Fragment>
         )}
       </View>

@@ -4,6 +4,8 @@ React Native - Stoic Quotes App
 
 Quotes from https://www.sloww.co/stoic-quotes/
 
+Local Push Notifications Article to use - https://medium.com/nerd-for-tech/react-native-local-push-notifications-4dcca5a14fd4
+
 Ensure you are at least using version 15 of node.
 
 - nvm install 14

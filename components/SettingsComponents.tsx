@@ -1,4 +1,4 @@
-import React, { Fragment } from "react";
+import React, { useState } from "react";
 import {
   StyleSheet,
   Text,
@@ -6,7 +6,9 @@ import {
   TouchableOpacity,
   ScrollView,
   Linking,
+  Platform,
 } from "react-native";
+import DateTimePicker from "@react-native-community/datetimepicker";
 
 import { View as ThemeView } from "../components/Themed";
 import SettingsRowChecklistComponent from "./SettingsRowChecklistComponent";
@@ -14,6 +16,23 @@ import SettingsRowComponent from "./SettingsRowComponent";
 import ShareApp from "./ShareApp";
 
 const SettingsComponent = () => {
+  const [date, setDate] = useState(new Date(1598051730000));
+  const [open, setOpen] = useState(false);
+  const [isSelected, setSelection] = useState(false);
+
+  const onChange = (event: any, selectedDate: any) => {
+    const currentDate = selectedDate || date;
+    setOpen(Platform.OS === "ios");
+    setDate(currentDate);
+  };
+
+  function addZeroBefore(n: any) {
+    return (n < 10 ? "0" : "") + n;
+  }
+
+  var minutes = date.getMinutes();
+  var hours = addZeroBefore(date.getHours());
+
   return (
     <ScrollView>
       <View
@@ -25,22 +44,59 @@ const SettingsComponent = () => {
           },
         ]}
       >
-        {/* Notification */}
-
-        {/* <View style={{}}>
-          <Text style={{ color: "orange", marginTop: 20 }}>Notification</Text>
+        <View style={{}}>
+          <Text
+            style={{
+              color: "black",
+              marginTop: 0,
+              fontSize: 16,
+              fontWeight: "bold",
+            }}
+          >
+            Notifications
+          </Text>
         </View>
+
         <SettingsRowChecklistComponent
           heading={"Daily"}
-          description={"Some Text About The Daily Setting"}
+          description={
+            "If selected daily notification of a randomly selected quote will show up."
+          }
+          isSelected={isSelected}
+          setSelection={setSelection}
         />
+
+        {isSelected && (
+          <TouchableOpacity onPress={() => setOpen(!open)}>
+            <SettingsRowComponent
+              heading={"Delivery Time"}
+              description={
+                "When do you want your daily dose? Currently at " +
+                hours +
+                ":" +
+                minutes
+              }
+            />
+          </TouchableOpacity>
+        )}
+
+        {open && (
+          <DateTimePicker
+            testID="dateTimePicker"
+            value={date}
+            mode={"time"}
+            is24Hour={true}
+            display="default"
+            onChange={onChange}
+            themeVariant="dark"
+          />
+        )}
+
         <ThemeView
           style={styles.separator}
-          lightColor="#eee"
+          lightColor="lightgray"
           darkColor="rgba(255,255,255,0.1)"
-        /> */}
-
-        {/* Share */}
+        />
 
         <View style={{}}>
           <Text
@@ -57,21 +113,11 @@ const SettingsComponent = () => {
 
         <ShareApp />
 
-        {/* 
-        <TouchableOpacity onPress={() => console.log("Share App With Friends")}>
-          <SettingsRowComponent
-            heading={"Tell a friend"}
-            description={"Share this app with a friend"}
-          />
-        </TouchableOpacity> */}
-
         <ThemeView
           style={styles.separator}
           lightColor="lightgray"
           darkColor="rgba(255,255,255,0.1)"
         />
-
-        {/* The Stoic */}
 
         <View style={{}}>
           <Text
@@ -128,7 +174,7 @@ const SettingsComponent = () => {
         >
           <SettingsRowComponent
             heading={"Report Bug"}
-            description={"Report bugs or request new features"}
+            description={"Report bugs or request new features."}
           />
         </TouchableOpacity>
 

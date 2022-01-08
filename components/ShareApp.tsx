@@ -25,7 +25,7 @@ const ShareApp = () => {
       <Pressable style={{}} onPress={onShare}>
         <Text style={containerStyle.heading}>Tell a friend</Text>
         <Text style={containerStyle.description}>
-          Share this app with a friend
+          Share this app with a friend.
         </Text>
       </Pressable>
       {/* <Button onPress={onShare} title="Tell a friend" style={}/> */}

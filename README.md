@@ -4,7 +4,9 @@ React Native - Stoic Quotes App
 
 Quotes from https://www.sloww.co/stoic-quotes/
 
-Local Push Notifications Article to use - https://medium.com/nerd-for-tech/react-native-local-push-notifications-4dcca5a14fd4
+Notifications - use Expo notifications. Some of the current logic is in Aoo.tsx just now
+
+To build ios or android apps - https://instabug.com/blog/react-native-app-ios-android/
 
 Ensure you are at least using version 15 of node.
 

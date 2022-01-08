@@ -1,25 +1,34 @@
-import React, { useState } from "react";
-import { StyleSheet, Text, View } from "react-native";
+import React from "react";
+import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import { CheckBox } from "react-native-elements";
 
 const SettingsRowChecklistComponent = ({
   heading,
   description,
+  isSelected,
+  setSelection,
 }: {
   heading: any;
   description: any;
+  isSelected: any;
+  setSelection: any;
 }) => {
-  const [isSelected, setSelection] = useState(false);
-
   return (
-    <View style={containerStyle.rowContainer}>
-      <View style={{ width: "80%" }}>
-        <Text style={containerStyle.heading}>{heading}</Text>
-        <Text style={containerStyle.description}>{description}</Text>
+    <TouchableOpacity onPress={() => setSelection(!isSelected)}>
+      <View style={containerStyle.rowContainer}>
+        <View style={{ width: "80%" }}>
+          <Text style={containerStyle.heading}>{heading}</Text>
+          <Text style={containerStyle.description}>{description}</Text>
+        </View>
+        <View style={containerStyle.checkbox}>
+          <CheckBox
+            checked={isSelected}
+            onPress={() => setSelection(!isSelected)}
+            checkedColor="black"
+          />
+        </View>
       </View>
-      {/* <View style={containerStyle.checkbox}>
-        <CheckBox value={isSelected} onValueChange={setSelection} />
-      </View> */}
-    </View>
+    </TouchableOpacity>
   );
 };
 
@@ -28,12 +37,12 @@ const containerStyle = StyleSheet.create({
     marginTop: 30,
     flexDirection: "row",
   },
-  heading: { fontSize: 16, fontWeight: "500", color: "white" },
+  heading: { fontSize: 16, fontWeight: "500", color: "black" },
   description: { fontSize: 14, fontWeight: "300", color: "gray" },
-  // checkbox: {
-  //   width: "20%",
-  //   justifyContent: "center",
-  // },
+  checkbox: {
+    width: "20%",
+    justifyContent: "center",
+  },
 });
 
 export default SettingsRowChecklistComponent;

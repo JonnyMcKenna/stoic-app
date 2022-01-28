@@ -4,7 +4,9 @@ React Native - Stoic Quotes App
 
 Quotes from https://www.sloww.co/stoic-quotes/
 
-Notifications - use Expo notifications. Some of the current logic is in Aoo.tsx just now
+Notifications - https://docs.expo.dev/versions/latest/sdk/notifications/#requestpermissionsasyncrequest-notificationpermissionsrequest-promisenotificationpermissionsstatus
+
+https://gist.github.com/VeraZab/c3f13d51588bcfdf6799da65decf26fa
 
 To build ios or android apps - https://instabug.com/blog/react-native-app-ios-android/
 

@@ -7,13 +7,16 @@ import {
   ScrollView,
   Linking,
   Platform,
+  Alert,
 } from "react-native";
+import { CheckBox } from "react-native-elements";
 import DateTimePicker from "@react-native-community/datetimepicker";
 
 import { View as ThemeView } from "../components/Themed";
 import SettingsRowChecklistComponent from "./SettingsRowChecklistComponent";
 import SettingsRowComponent from "./SettingsRowComponent";
 import ShareApp from "./ShareApp";
+import * as Notifications from "expo-notifications";
 
 const SettingsComponent = () => {
   const [date, setDate] = useState(new Date(1598051730000));
@@ -24,6 +27,21 @@ const SettingsComponent = () => {
     const currentDate = selectedDate || date;
     setOpen(Platform.OS === "ios");
     setDate(currentDate);
+    scheduleNotification(selectedDate || date);
+  };
+
+  const onDailyChange = async (isSelected: any, date: any) => {
+    if (isSelected) {
+      //if isSelected is true then this section is open but about to close
+      await Notifications.cancelAllScheduledNotificationsAsync();
+    }
+    if (!isSelected) {
+      //if isSelected is false then this section is closed but about to open
+      // cancelAllScheduledNotificationsAsync is already called in scheduleNotification which is why we don't trigger cancelAllScheduledNotificationsAsync twice
+      scheduleNotification(date);
+    }
+
+    setSelection(!isSelected);
   };
 
   function addZeroBefore(n: any) {
@@ -32,6 +50,30 @@ const SettingsComponent = () => {
 
   var minutes = date.getMinutes();
   var hours = addZeroBefore(date.getHours());
+
+  const scheduleNotification = async (updatedNotificationDate: any) => {
+    await Notifications.cancelAllScheduledNotificationsAsync();
+
+    const minute = Number(updatedNotificationDate.getMinutes());
+    const hour = Number(updatedNotificationDate.getHours());
+
+    const schedulingOptions = {
+      content: {
+        title: "Stoic Quotes App",
+        body: "View your latest stoic quote of the day!",
+        sound: true,
+        priority: Notifications.AndroidNotificationPriority.HIGH,
+        // color: "blue",
+      },
+      trigger: {
+        // seconds: 3,
+        hour: hour,
+        minute: minute,
+        repeats: true,
+      },
+    };
+    await Notifications.scheduleNotificationAsync(schedulingOptions);
+  };
 
   return (
     <ScrollView>
@@ -57,14 +99,34 @@ const SettingsComponent = () => {
           </Text>
         </View>
 
-        <SettingsRowChecklistComponent
+        {/* <SettingsRowChecklistComponent
           heading={"Daily"}
           description={
             "If selected daily notification of a randomly selected quote will show up."
           }
           isSelected={isSelected}
           setSelection={setSelection}
-        />
+        /> */}
+
+        <TouchableOpacity onPress={() => setSelection(!isSelected)}>
+          <View style={containerStyle.rowContainer}>
+            <View style={{ width: "80%" }}>
+              <Text style={rowChecklistStyle.heading}>{"Daily"}</Text>
+              <Text style={rowChecklistStyle.description}>
+                {
+                  "If selected daily notification of a randomly selected quote will show up."
+                }
+              </Text>
+            </View>
+            <View style={rowChecklistStyle.checkbox}>
+              <CheckBox
+                checked={isSelected}
+                onPress={() => onDailyChange(isSelected, date)}
+                checkedColor="black"
+              />
+            </View>
+          </View>
+        </TouchableOpacity>
 
         {isSelected && (
           <TouchableOpacity onPress={() => setOpen(!open)}>
@@ -193,13 +255,10 @@ const styles = StyleSheet.create({
     flex: 1,
     padding: 20,
     marginTop: 24,
-    // marginLeft: 24,
-    // marginRight: 24,
   },
   separator: {
     marginVertical: 30,
     height: 1,
-    // width: "80%",
   },
 });
 
@@ -211,6 +270,19 @@ const containerStyle = StyleSheet.create({
   rowContainer: {
     marginTop: 30,
     flexDirection: "row",
+  },
+});
+
+const rowChecklistStyle = StyleSheet.create({
+  rowContainer: {
+    marginTop: 30,
+    flexDirection: "row",
+  },
+  heading: { fontSize: 16, fontWeight: "500", color: "black" },
+  description: { fontSize: 14, fontWeight: "300", color: "gray" },
+  checkbox: {
+    width: "20%",
+    justifyContent: "center",
   },
 });
 

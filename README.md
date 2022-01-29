@@ -24,6 +24,10 @@ To build ios or android apps - https://instabug.com/blog/react-native-app-ios-an
 - expo build:android
 - expo build:ios
 
+# Background Fetch to create daily quote updates
+
+https://docs.expo.dev/versions/latest/sdk/background-fetch/
+
 # App Setup
 
 Ensure you are at least using version 15 of node.

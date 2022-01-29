@@ -94,7 +94,7 @@ const SettingsComponent = () => {
     return (n < 10 ? "0" : "") + n;
   }
 
-  var minutes = date.getMinutes();
+  var minutes = addZeroBefore(date.getMinutes());
   var hours = addZeroBefore(date.getHours());
 
   const scheduleNotification = async (updatedNotificationDate: any) => {

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   StyleSheet,
   Text,
@@ -7,8 +7,8 @@ import {
   ScrollView,
   Linking,
   Platform,
-  Alert,
 } from "react-native";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 import { CheckBox } from "react-native-elements";
 import DateTimePicker from "@react-native-community/datetimepicker";
 
@@ -19,14 +19,54 @@ import ShareApp from "./ShareApp";
 import * as Notifications from "expo-notifications";
 
 const SettingsComponent = () => {
-  const [date, setDate] = useState(new Date(1598051730000));
+  const getNotificationDate = async () => {
+    try {
+      const notificationDate = await AsyncStorage.getItem("@notification_date");
+      if (notificationDate !== null) {
+        const parsedNotificationDate = new Date(notificationDate);
+        setDate(parsedNotificationDate);
+      }
+    } catch (e) {
+      // error reading value
+    }
+  };
+
+  const getDailyNotificationsToggle = async () => {
+    try {
+      const dailyNotificationToggle = await AsyncStorage.getItem(
+        "@daily_notifications_toggle"
+      );
+      if (dailyNotificationToggle !== null) {
+        let dailyNotificationToggleValue = dailyNotificationToggle === "true";
+        setSelection(dailyNotificationToggleValue);
+      }
+    } catch (e) {
+      // error reading value
+    }
+  };
+
+  useEffect(() => {
+    getNotificationDate();
+    getDailyNotificationsToggle();
+  }, []);
+
+  const [date, setDate] = useState(new Date(1598051757900));
   const [open, setOpen] = useState(false);
   const [isSelected, setSelection] = useState(false);
+
+  const storeAndSetNotificationDate = async (currentDate: any) => {
+    try {
+      setDate(currentDate);
+      await AsyncStorage.setItem("@notification_date", currentDate.toString());
+    } catch (e) {
+      // saving error
+    }
+  };
 
   const onChange = (event: any, selectedDate: any) => {
     const currentDate = selectedDate || date;
     setOpen(Platform.OS === "ios");
-    setDate(currentDate);
+    storeAndSetNotificationDate(currentDate);
     scheduleNotification(selectedDate || date);
   };
 
@@ -40,6 +80,12 @@ const SettingsComponent = () => {
       // cancelAllScheduledNotificationsAsync is already called in scheduleNotification which is why we don't trigger cancelAllScheduledNotificationsAsync twice
       scheduleNotification(date);
     }
+
+    const isSelectedToggle = !isSelected;
+    await AsyncStorage.setItem(
+      "@daily_notifications_toggle",
+      isSelectedToggle.toString()
+    );
 
     setSelection(!isSelected);
   };

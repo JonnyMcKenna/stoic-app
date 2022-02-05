@@ -1,23 +1,54 @@
 import React, { Fragment, useEffect, useState } from "react";
-import { ScrollView, StyleSheet } from "react-native";
+import { ScrollView } from "react-native";
 import NewButton from "./NewButton";
 import { Text, View } from "./Themed";
+import * as TaskManager from "expo-task-manager";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import {
+  BACKGROUND_FETCH_TASK,
+  registerBackgroundFetchAsync,
+  unregisterBackgroundFetchAsync,
+} from "./QuoteScreenAsyncStorage";
+import { QuoteProps } from "../types/genericTypes";
+import { homeScreenStyles } from "../styles/homeScreen";
+import data from "../quotes.json";
 
 export default function EditScreenInfo() {
-  interface QuoteProps {
-    text: string;
-    author: string;
-  }
+  useEffect(() => {
+    toggleFetchTask();
+    checkStatusAsync();
+    getDailyQuote();
+  }, []);
 
+  const [isRegistered, setIsRegistered] = React.useState(false);
   const [quote, setQuote] = useState<QuoteProps>();
 
-  var data = require("../quotes.json");
+  const getDailyQuote = async () => {
+    try {
+      const dailyQuote = await AsyncStorage.getItem("@daily_quote");
+      if (dailyQuote !== null) {
+        setQuote(JSON.parse(dailyQuote));
+      }
+    } catch (e) {
+      // error reading value
+    }
+  };
 
-  useEffect(() => {
-    const retrievedQuotes = data.quotes;
-    const randomIndex = Math.floor(Math.random() * retrievedQuotes.length);
-    setQuote(retrievedQuotes[randomIndex]);
-  }, []);
+  const checkStatusAsync = async () => {
+    const isRegistered = await TaskManager.isTaskRegisteredAsync(
+      BACKGROUND_FETCH_TASK
+    );
+    setIsRegistered(isRegistered);
+  };
+
+  const toggleFetchTask = async () => {
+    if (isRegistered) {
+      await unregisterBackgroundFetchAsync();
+    } else {
+      await registerBackgroundFetchAsync();
+    }
+    checkStatusAsync();
+  };
 
   function updateQuote() {
     const retrievedQuotes = data.quotes;
@@ -26,20 +57,23 @@ export default function EditScreenInfo() {
   }
 
   return (
-    <ScrollView style={styles.scrollViewStyle}>
-      <View style={styles.getStartedContainer}>
+    <ScrollView style={homeScreenStyles.scrollViewStyle}>
+      <View style={homeScreenStyles.getStartedContainer}>
         <View
-          style={[styles.codeHighlightContainer, styles.homeScreenFilename]}
+          style={[
+            homeScreenStyles.codeHighlightContainer,
+            homeScreenStyles.homeScreenFilename,
+          ]}
           darkColor="rgba(255,255,255,0.05)"
           lightColor="rgba(0,0,0,0.05)"
         ></View>
       </View>
 
-      <View style={styles.container}>
+      <View style={homeScreenStyles.container}>
         {quote && (
           <Fragment>
-            <Text style={styles.quoteText}>"{quote.text}"</Text>
-            <Text style={styles.quoteAuthor}>- {quote.author}</Text>
+            <Text style={homeScreenStyles.quoteText}>"{quote.text}"</Text>
+            <Text style={homeScreenStyles.quoteAuthor}>- {quote.author}</Text>
             <NewButton onPress={updateQuote} title="New Quote" />
           </Fragment>
         )}
@@ -47,54 +81,3 @@ export default function EditScreenInfo() {
     </ScrollView>
   );
 }
-
-const styles = StyleSheet.create({
-  getStartedContainer: {
-    alignItems: "center",
-    marginHorizontal: 50,
-    backgroundColor: "white",
-  },
-  homeScreenFilename: {
-    marginVertical: 7,
-  },
-  codeHighlightContainer: {
-    borderRadius: 3,
-    paddingHorizontal: 4,
-  },
-  helpContainer: {
-    marginTop: 15,
-    marginHorizontal: 20,
-    alignItems: "center",
-  },
-  helpLink: {
-    paddingVertical: 15,
-  },
-  helpLinkText: {
-    textAlign: "center",
-  },
-  container: {
-    marginTop: 40,
-    flex: 1,
-    backgroundColor: "white",
-    // alignItems: "center",
-    // justifyContent: "center",
-    marginRight: 40,
-    marginLeft: 40,
-    marginBottom: 40,
-  },
-  quoteText: {
-    fontSize: 26,
-    textAlign: "left",
-    // maxWidth: "60%",
-    color: "black",
-  },
-  quoteAuthor: {
-    marginTop: 30,
-    marginBottom: 50,
-    fontSize: 18,
-    fontWeight: "600",
-    color: "#828282",
-    textAlign: "left",
-  },
-  scrollViewStyle: { flexGrow: 0 },
-});

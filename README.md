@@ -50,6 +50,11 @@ Run on Web:
 
 TODO:
 
-- When I click new quote - update it in async storage
 - Need to save the notification body (aka quote) to pull from]
 - Need to save the isSelected for the daily notification to pull from
+- Update design
+- Add motion splash screen
+- Add motion interaction design
+- Ensure works on android and ios
+- Decide on a name - based off of seo research
+- Get a logo created

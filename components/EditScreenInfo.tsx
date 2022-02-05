@@ -8,6 +8,7 @@ import {
   BACKGROUND_FETCH_TASK,
   getDailyQuote,
   registerBackgroundFetchAsync,
+  storeQuoteToAsyncStorage,
   unregisterBackgroundFetchAsync,
 } from "./QuoteScreenAsyncStorage";
 import { QuoteProps } from "../types/genericTypes";
@@ -45,7 +46,9 @@ export default function EditScreenInfo() {
   function updateQuote() {
     const retrievedQuotes = data.quotes;
     const randomIndex = Math.floor(Math.random() * retrievedQuotes.length);
-    setQuote(retrievedQuotes[randomIndex]);
+    const newQuote = retrievedQuotes[randomIndex];
+    setQuote(newQuote);
+    storeQuoteToAsyncStorage(newQuote);
   }
 
   return (

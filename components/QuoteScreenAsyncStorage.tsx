@@ -76,10 +76,12 @@ export const scheduleNotification = async () => {
     });
 };
 
-const storeQuoteToAsyncStorage = async () => {
-  const retrievedQuotes = data.quotes;
-  const randomIndex = Math.floor(Math.random() * retrievedQuotes.length);
-  const newQuote = retrievedQuotes[randomIndex];
+export const storeQuoteToAsyncStorage = async (newQuote?: any) => {
+  if (!newQuote) {
+    const retrievedQuotes = data.quotes;
+    const randomIndex = Math.floor(Math.random() * retrievedQuotes.length);
+    newQuote = retrievedQuotes[randomIndex];
+  }
 
   try {
     await AsyncStorage.setItem("@daily_quote", JSON.stringify(newQuote));

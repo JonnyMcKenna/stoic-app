@@ -57,3 +57,7 @@ TODO:
 - Decide on a name - based off of seo research
 - Get a logo created
 - Add more quotes
+- remove request from my paypal
+- add add to top of app
+- create an add free version, after paying for the app
+- Add helpful resources section with amazon affiliate links to good stoic books

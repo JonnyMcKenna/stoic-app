@@ -47,3 +47,9 @@ Run on Android:
 Run on Web:
 
 - expo start --web
+
+TODO:
+
+- When I click new quote - update it in async storage
+- Need to save the notification body (aka quote) to pull from]
+- Need to save the isSelected for the daily notification to pull from

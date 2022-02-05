@@ -1,9 +1,80 @@
 import * as BackgroundFetch from "expo-background-fetch";
 import * as TaskManager from "expo-task-manager";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import * as Notifications from "expo-notifications";
 
 export const BACKGROUND_FETCH_TASK = "background-fetch";
 import data from "../quotes.json";
+
+export const getNotificationDate = async () => {
+  try {
+    const notificationDate = await AsyncStorage.getItem("@notification_date");
+    if (notificationDate !== null) {
+      const parsedNotificationDate = new Date(notificationDate);
+      return parsedNotificationDate;
+    } else {
+      return new Date();
+    }
+  } catch (e) {
+    // error reading value
+  }
+};
+
+export const storeNotificationDateToAsyncStorage = async (currentDate: any) => {
+  try {
+    await AsyncStorage.setItem("@notification_date", currentDate.toString());
+  } catch (e) {
+    // saving error
+  }
+};
+
+export const getDailyQuote = async () => {
+  try {
+    const dailyQuote = await AsyncStorage.getItem("@daily_quote");
+    if (dailyQuote !== null) {
+      return JSON.parse(dailyQuote);
+    }
+  } catch (e) {
+    // error reading value
+  }
+};
+
+export const scheduleNotification = async () => {
+  await Notifications.cancelAllScheduledNotificationsAsync();
+
+  let minute = 0;
+  let hour = 8;
+
+  getNotificationDate()
+    .then((updatedNotificationDate) => {
+      if (updatedNotificationDate) {
+        minute = Number(updatedNotificationDate.getMinutes());
+        hour = Number(updatedNotificationDate.getHours());
+      }
+    })
+    .then(() => {
+      getDailyQuote().then((dailyQuote) => {
+        const dailyQuoteMessage = dailyQuote.text;
+
+        const schedulingOptions = {
+          content: {
+            title: "Stoic Quotes App",
+            body: dailyQuoteMessage,
+            sound: true,
+            priority: Notifications.AndroidNotificationPriority.HIGH,
+            // color: "blue",
+          },
+          trigger: {
+            // seconds: 3,
+            hour: hour,
+            minute: minute,
+            repeats: true,
+          },
+        };
+        Notifications.scheduleNotificationAsync(schedulingOptions);
+      });
+    });
+};
 
 const storeQuoteToAsyncStorage = async () => {
   const retrievedQuotes = data.quotes;
@@ -12,6 +83,7 @@ const storeQuoteToAsyncStorage = async () => {
 
   try {
     await AsyncStorage.setItem("@daily_quote", JSON.stringify(newQuote));
+    scheduleNotification;
   } catch (e) {
     // saving error
   }
@@ -39,6 +111,7 @@ TaskManager.defineTask(BACKGROUND_FETCH_TASK, async () => {
   if (pastDay !== null) {
     if (Number(pastDay) < Number(currentDay)) {
       storeQuoteToAsyncStorage();
+      storeCurrentDayToAsyncStorage(Number(currentDay));
     }
   } else {
     storeCurrentDayToAsyncStorage(Number(currentDay));

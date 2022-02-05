@@ -6,6 +6,7 @@ import * as TaskManager from "expo-task-manager";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import {
   BACKGROUND_FETCH_TASK,
+  getDailyQuote,
   registerBackgroundFetchAsync,
   unregisterBackgroundFetchAsync,
 } from "./QuoteScreenAsyncStorage";
@@ -15,24 +16,15 @@ import data from "../quotes.json";
 
 export default function EditScreenInfo() {
   useEffect(() => {
-    toggleFetchTask();
     checkStatusAsync();
-    getDailyQuote();
+    toggleFetchTask();
+    getDailyQuote().then((dailyQuote) => {
+      setQuote(dailyQuote);
+    });
   }, []);
 
   const [isRegistered, setIsRegistered] = React.useState(false);
   const [quote, setQuote] = useState<QuoteProps>();
-
-  const getDailyQuote = async () => {
-    try {
-      const dailyQuote = await AsyncStorage.getItem("@daily_quote");
-      if (dailyQuote !== null) {
-        setQuote(JSON.parse(dailyQuote));
-      }
-    } catch (e) {
-      // error reading value
-    }
-  };
 
   const checkStatusAsync = async () => {
     const isRegistered = await TaskManager.isTaskRegisteredAsync(

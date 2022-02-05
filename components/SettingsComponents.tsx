@@ -17,20 +17,13 @@ import SettingsRowChecklistComponent from "./SettingsRowChecklistComponent";
 import SettingsRowComponent from "./SettingsRowComponent";
 import ShareApp from "./ShareApp";
 import * as Notifications from "expo-notifications";
+import {
+  getNotificationDate,
+  scheduleNotification,
+  storeNotificationDateToAsyncStorage,
+} from "./QuoteScreenAsyncStorage";
 
 const SettingsComponent = () => {
-  const getNotificationDate = async () => {
-    try {
-      const notificationDate = await AsyncStorage.getItem("@notification_date");
-      if (notificationDate !== null) {
-        const parsedNotificationDate = new Date(notificationDate);
-        setDate(parsedNotificationDate);
-      }
-    } catch (e) {
-      // error reading value
-    }
-  };
-
   const getDailyNotificationsToggle = async () => {
     try {
       const dailyNotificationToggle = await AsyncStorage.getItem(
@@ -46,7 +39,12 @@ const SettingsComponent = () => {
   };
 
   useEffect(() => {
-    getNotificationDate();
+    getNotificationDate().then((parsedNotificationDate) => {
+      if (parsedNotificationDate) {
+        setDate(parsedNotificationDate);
+      }
+    });
+
     getDailyNotificationsToggle();
   }, []);
 
@@ -54,20 +52,13 @@ const SettingsComponent = () => {
   const [open, setOpen] = useState(false);
   const [isSelected, setSelection] = useState(false);
 
-  const storeAndSetNotificationDate = async (currentDate: any) => {
-    try {
-      setDate(currentDate);
-      await AsyncStorage.setItem("@notification_date", currentDate.toString());
-    } catch (e) {
-      // saving error
-    }
-  };
-
   const onChange = (event: any, selectedDate: any) => {
     const currentDate = selectedDate || date;
     setOpen(Platform.OS === "ios");
-    storeAndSetNotificationDate(currentDate);
-    scheduleNotification(selectedDate || date);
+    storeNotificationDateToAsyncStorage(currentDate).then(() => {
+      scheduleNotification();
+    });
+    setDate(currentDate);
   };
 
   const onDailyChange = async (isSelected: any, date: any) => {
@@ -78,7 +69,7 @@ const SettingsComponent = () => {
     if (!isSelected) {
       //if isSelected is false then this section is closed but about to open
       // cancelAllScheduledNotificationsAsync is already called in scheduleNotification which is why we don't trigger cancelAllScheduledNotificationsAsync twice
-      scheduleNotification(date);
+      scheduleNotification();
     }
 
     const isSelectedToggle = !isSelected;
@@ -96,30 +87,6 @@ const SettingsComponent = () => {
 
   var minutes = addZeroBefore(date.getMinutes());
   var hours = addZeroBefore(date.getHours());
-
-  const scheduleNotification = async (updatedNotificationDate: any) => {
-    await Notifications.cancelAllScheduledNotificationsAsync();
-
-    const minute = Number(updatedNotificationDate.getMinutes());
-    const hour = Number(updatedNotificationDate.getHours());
-
-    const schedulingOptions = {
-      content: {
-        title: "Stoic Quotes App",
-        body: "View your latest stoic quote of the day!",
-        sound: true,
-        priority: Notifications.AndroidNotificationPriority.HIGH,
-        // color: "blue",
-      },
-      trigger: {
-        // seconds: 3,
-        hour: hour,
-        minute: minute,
-        repeats: true,
-      },
-    };
-    await Notifications.scheduleNotificationAsync(schedulingOptions);
-  };
 
   return (
     <ScrollView>

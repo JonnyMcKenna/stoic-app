@@ -6,6 +6,23 @@ import * as Notifications from "expo-notifications";
 export const BACKGROUND_FETCH_TASK = "background-fetch";
 import data from "../quotes.json";
 
+export const getDailyNotificationsToggle = async () => {
+  try {
+    const dailyNotificationToggle = await AsyncStorage.getItem(
+      "@daily_notifications_toggle"
+    );
+
+    if (dailyNotificationToggle !== null) {
+      return dailyNotificationToggle === "true";
+    } else {
+      return false;
+    }
+  } catch (e) {
+    return false;
+    // error reading value
+  }
+};
+
 export const getNotificationDate = async () => {
   try {
     const notificationDate = await AsyncStorage.getItem("@notification_date");
@@ -84,8 +101,11 @@ export const storeQuoteToAsyncStorage = async (newQuote?: any) => {
   }
 
   try {
-    await AsyncStorage.setItem("@daily_quote", JSON.stringify(newQuote));
-    scheduleNotification;
+    await AsyncStorage.setItem("@daily_quote", JSON.stringify(newQuote)).then(
+      () => {
+        scheduleNotification;
+      }
+    );
   } catch (e) {
     // saving error
   }

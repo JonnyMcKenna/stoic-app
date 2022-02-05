@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import {
-  StyleSheet,
   Text,
   View,
   TouchableOpacity,
@@ -11,33 +10,24 @@ import {
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { CheckBox } from "react-native-elements";
 import DateTimePicker from "@react-native-community/datetimepicker";
-
 import { View as ThemeView } from "../components/Themed";
 import SettingsRowChecklistComponent from "./SettingsRowChecklistComponent";
 import SettingsRowComponent from "./SettingsRowComponent";
 import ShareApp from "./ShareApp";
 import * as Notifications from "expo-notifications";
 import {
+  getDailyNotificationsToggle,
   getNotificationDate,
   scheduleNotification,
   storeNotificationDateToAsyncStorage,
 } from "./QuoteScreenAsyncStorage";
+import {
+  settingsContainerStyle,
+  settingsRowChecklistStyle,
+  settingsStyles,
+} from "../styles/settingsComponentStyle";
 
 const SettingsComponent = () => {
-  const getDailyNotificationsToggle = async () => {
-    try {
-      const dailyNotificationToggle = await AsyncStorage.getItem(
-        "@daily_notifications_toggle"
-      );
-      if (dailyNotificationToggle !== null) {
-        let dailyNotificationToggleValue = dailyNotificationToggle === "true";
-        setSelection(dailyNotificationToggleValue);
-      }
-    } catch (e) {
-      // error reading value
-    }
-  };
-
   useEffect(() => {
     getNotificationDate().then((parsedNotificationDate) => {
       if (parsedNotificationDate) {
@@ -45,7 +35,9 @@ const SettingsComponent = () => {
       }
     });
 
-    getDailyNotificationsToggle();
+    getDailyNotificationsToggle().then((dailyNotificationToggleValue) => {
+      setSelection(dailyNotificationToggleValue);
+    });
   }, []);
 
   const [date, setDate] = useState(new Date(1598051757900));
@@ -92,7 +84,7 @@ const SettingsComponent = () => {
     <ScrollView>
       <View
         style={[
-          styles.container,
+          settingsStyles.container,
           {
             flexDirection: "column",
             backgroundColor: "white",
@@ -122,16 +114,16 @@ const SettingsComponent = () => {
         /> */}
 
         <TouchableOpacity onPress={() => setSelection(!isSelected)}>
-          <View style={containerStyle.rowContainer}>
+          <View style={settingsContainerStyle.rowContainer}>
             <View style={{ width: "80%" }}>
-              <Text style={rowChecklistStyle.heading}>{"Daily"}</Text>
-              <Text style={rowChecklistStyle.description}>
+              <Text style={settingsRowChecklistStyle.heading}>{"Daily"}</Text>
+              <Text style={settingsRowChecklistStyle.description}>
                 {
                   "If selected daily notification of a randomly selected quote will show up."
                 }
               </Text>
             </View>
-            <View style={rowChecklistStyle.checkbox}>
+            <View style={settingsRowChecklistStyle.checkbox}>
               <CheckBox
                 checked={isSelected}
                 onPress={() => onDailyChange(isSelected, date)}
@@ -168,7 +160,7 @@ const SettingsComponent = () => {
         )}
 
         <ThemeView
-          style={styles.separator}
+          style={settingsStyles.separator}
           lightColor="lightgray"
           darkColor="rgba(255,255,255,0.1)"
         />
@@ -189,7 +181,7 @@ const SettingsComponent = () => {
         <ShareApp />
 
         <ThemeView
-          style={styles.separator}
+          style={settingsStyles.separator}
           lightColor="lightgray"
           darkColor="rgba(255,255,255,0.1)"
         />
@@ -254,7 +246,7 @@ const SettingsComponent = () => {
         </TouchableOpacity>
 
         <ThemeView
-          style={styles.separator}
+          style={settingsStyles.separator}
           lightColor="lightgray"
           darkColor="rgba(255,255,255,0.1)"
         />
@@ -262,41 +254,5 @@ const SettingsComponent = () => {
     </ScrollView>
   );
 };
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    padding: 20,
-    marginTop: 24,
-  },
-  separator: {
-    marginVertical: 30,
-    height: 1,
-  },
-});
-
-const containerStyle = StyleSheet.create({
-  container: {
-    padding: 8,
-    backgroundColor: "#ffffff",
-  },
-  rowContainer: {
-    marginTop: 30,
-    flexDirection: "row",
-  },
-});
-
-const rowChecklistStyle = StyleSheet.create({
-  rowContainer: {
-    marginTop: 30,
-    flexDirection: "row",
-  },
-  heading: { fontSize: 16, fontWeight: "500", color: "black" },
-  description: { fontSize: 14, fontWeight: "300", color: "gray" },
-  checkbox: {
-    width: "20%",
-    justifyContent: "center",
-  },
-});
 
 export default SettingsComponent;

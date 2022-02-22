@@ -27,10 +27,11 @@ export const getNotificationDate = async () => {
   try {
     const notificationDate = await AsyncStorage.getItem("@notification_date");
     if (notificationDate !== null) {
+      console.log(notificationDate);
       const parsedNotificationDate = new Date(notificationDate);
       return parsedNotificationDate;
     } else {
-      return new Date();
+      return new Date("T08:00:00");
     }
   } catch (e) {
     // error reading value

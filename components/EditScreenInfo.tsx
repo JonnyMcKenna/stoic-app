@@ -14,6 +14,7 @@ import {
 import { QuoteProps } from "../types/genericTypes";
 import { homeScreenStyles } from "../styles/homeScreen";
 import data from "../quotes.json";
+import "./QuoteScreenAsyncStorage";
 
 export default function EditScreenInfo() {
   useEffect(() => {

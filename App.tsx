@@ -3,18 +3,23 @@ import React, { useEffect, useState } from "react";
 import { PermissionStatus } from "expo-modules-core";
 import { SafeAreaProvider } from "react-native-safe-area-context";
 import useCachedResources from "./hooks/useCachedResources";
-import useColorScheme from "./hooks/useColorScheme";
 import Navigation from "./navigation";
 import * as Notifications from "expo-notifications";
 import SplashScreenAnimation from "./components/SplashScreenAnimation";
+import { LogBox } from "react-native";
+
+LogBox.ignoreLogs(["Remote debugger"]);
 
 export default function App() {
   const [notificationPermissions, setNotificationPermissions] =
     useState<PermissionStatus>(PermissionStatus.UNDETERMINED);
 
   const isLoadingComplete = useCachedResources();
-  const colorScheme = useColorScheme();
   const [showSplash, setShowSplash] = useState(true);
+
+  interface Notification {
+    request: any;
+  }
 
   const handleNotification = (notification: Notification) => {
     const { title } = notification.request.content;
@@ -62,7 +67,7 @@ export default function App() {
       </SafeAreaProvider>
     ) : (
       <SafeAreaProvider>
-        <Navigation colorScheme={colorScheme} />
+        <Navigation />
         <StatusBar />
       </SafeAreaProvider>
     );

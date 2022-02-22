@@ -8,7 +8,7 @@ export default function SimpleAnimation() {
       <LottieView
         source={require("../assets/lottie/splashScreen.json")}
         loop={true}
-        autoPlay
+        autoPlay={true}
       />
     </Modal>
   );

@@ -1,6 +1,6 @@
 import { FontAwesome } from "@expo/vector-icons";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import { NavigationContainer, DarkTheme } from "@react-navigation/native";
+import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import * as React from "react";
 
@@ -17,7 +17,7 @@ import LinkingConfiguration from "./LinkingConfiguration";
 
 export default function Navigation() {
   return (
-    <NavigationContainer linking={LinkingConfiguration} theme={DarkTheme}>
+    <NavigationContainer linking={LinkingConfiguration}>
       <RootNavigator />
     </NavigationContainer>
   );

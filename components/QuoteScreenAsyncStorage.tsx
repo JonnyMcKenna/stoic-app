@@ -27,7 +27,6 @@ export const getNotificationDate = async () => {
   try {
     const notificationDate = await AsyncStorage.getItem("@notification_date");
     if (notificationDate !== null) {
-      console.log(notificationDate);
       const parsedNotificationDate = new Date(notificationDate);
       return parsedNotificationDate;
     } else {
@@ -40,7 +39,7 @@ export const getNotificationDate = async () => {
 
 export const storeNotificationDateToAsyncStorage = async (currentDate: any) => {
   try {
-    await AsyncStorage.setItem("@notification_date", currentDate.toString());
+    await AsyncStorage.setItem("@notification_date", currentDate);
   } catch (e) {
     // saving error
   }
@@ -102,11 +101,9 @@ export const storeQuoteToAsyncStorage = async (newQuote?: any) => {
   }
 
   try {
-    await AsyncStorage.setItem("@daily_quote", JSON.stringify(newQuote)).then(
-      () => {
-        scheduleNotification;
-      }
-    );
+    await AsyncStorage.setItem("@daily_quote", newQuote).then(() => {
+      scheduleNotification;
+    });
   } catch (e) {
     // saving error
   }

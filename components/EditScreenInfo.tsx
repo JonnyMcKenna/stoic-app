@@ -3,7 +3,6 @@ import { ScrollView } from "react-native";
 import NewButton from "./NewButton";
 import { Text, View } from "./Themed";
 import * as TaskManager from "expo-task-manager";
-import AsyncStorage from "@react-native-async-storage/async-storage";
 import {
   BACKGROUND_FETCH_TASK,
   getDailyQuote,
@@ -20,7 +19,7 @@ export default function EditScreenInfo() {
   useEffect(() => {
     checkStatusAsync();
     toggleFetchTask();
-    getDailyQuote().then((dailyQuote) => {
+    getDailyQuote().then((dailyQuote: any) => {
       setQuote(dailyQuote);
     });
   }, []);

@@ -30,7 +30,7 @@ export const getNotificationDate = async () => {
       const parsedNotificationDate = new Date(notificationDate);
       return parsedNotificationDate;
     } else {
-      return new Date("T08:00:00");
+      return new Date("Sat Feb 26 2022 08:00:00 GMT+0000 (GMT)");
     }
   } catch (e) {
     // error reading value
@@ -39,20 +39,17 @@ export const getNotificationDate = async () => {
 
 export const storeNotificationDateToAsyncStorage = async (currentDate: any) => {
   try {
-    await AsyncStorage.setItem("@notification_date", currentDate);
+    await AsyncStorage.setItem("@notification_date", currentDate.toString());
   } catch (e) {
     // saving error
   }
 };
 
 export const getDailyQuote = async () => {
-  try {
-    const dailyQuote = await AsyncStorage.getItem("@daily_quote");
-    if (dailyQuote !== null) {
-      return JSON.parse(dailyQuote);
-    }
-  } catch (e) {
-    // error reading value
+  const dailyQuote = await AsyncStorage.getItem("@daily_quote");
+
+  if (dailyQuote !== null) {
+    return JSON.parse(dailyQuote);
   }
 };
 
@@ -70,7 +67,7 @@ export const scheduleNotification = async () => {
       }
     })
     .then(() => {
-      getDailyQuote().then((dailyQuote) => {
+      getDailyQuote().then((dailyQuote: any) => {
         const dailyQuoteMessage = dailyQuote.text;
 
         const schedulingOptions = {
@@ -94,16 +91,18 @@ export const scheduleNotification = async () => {
 };
 
 export const storeQuoteToAsyncStorage = async (newQuote?: any) => {
-  if (!newQuote) {
+  if (!newQuote || newQuote === null) {
     const retrievedQuotes = data.quotes;
     const randomIndex = Math.floor(Math.random() * retrievedQuotes.length);
     newQuote = retrievedQuotes[randomIndex];
   }
 
   try {
-    await AsyncStorage.setItem("@daily_quote", newQuote).then(() => {
-      scheduleNotification;
-    });
+    await AsyncStorage.setItem("@daily_quote", JSON.stringify(newQuote)).then(
+      () => {
+        scheduleNotification;
+      }
+    );
   } catch (e) {
     // saving error
   }

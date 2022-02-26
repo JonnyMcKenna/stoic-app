@@ -44,6 +44,10 @@ Run on Android:
 
 - expo start --android
 
+Run Development Build of Android to Test on Simulator:
+
+- expo run:android
+
 Run on Web:
 
 - expo start --web

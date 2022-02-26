@@ -29,6 +29,7 @@
     "expo-permissions": "~13.0.3",
     "expo-splash-screen": "~0.13.3",
     "expo-status-bar": "~1.1.0",
+    "expo-updates": "^0.11.6",
     "expo-web-browser": "~10.0.3",
     "lottie-ios": "3.2.3",
     "lottie-react-native": "^5.0.1",

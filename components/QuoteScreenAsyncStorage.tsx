@@ -50,6 +50,8 @@ export const getDailyQuote = async () => {
 
   if (dailyQuote !== null) {
     return JSON.parse(dailyQuote);
+  } else {
+    storeQuoteToAsyncStorage();
   }
 };
 

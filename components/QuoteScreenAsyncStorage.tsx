@@ -51,7 +51,15 @@ export const getDailyQuote = async () => {
   if (dailyQuote !== null) {
     return JSON.parse(dailyQuote);
   } else {
-    storeQuoteToAsyncStorage();
+    storeQuoteToAsyncStorage({
+      text: "Life is long if you know how to use it.",
+      author: "Seneca",
+    });
+
+    return {
+      text: "Life is long if you know how to use it.",
+      author: "Seneca",
+    };
   }
 };
 
@@ -71,11 +79,12 @@ export const scheduleNotification = async () => {
     .then(() => {
       getDailyQuote().then((dailyQuote: any) => {
         const dailyQuoteMessage = dailyQuote.text;
+        const dailyQuoteAuthor = dailyQuote.author;
 
         const schedulingOptions = {
           content: {
             title: "Stoic Quotes App",
-            body: dailyQuoteMessage,
+            body: dailyQuoteMessage + " - " + dailyQuoteAuthor,
             sound: true,
             priority: Notifications.AndroidNotificationPriority.HIGH,
             // color: "blue",

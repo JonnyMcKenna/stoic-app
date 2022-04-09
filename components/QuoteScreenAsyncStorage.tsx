@@ -46,11 +46,14 @@ export const storeNotificationDateToAsyncStorage = async (currentDate: any) => {
 };
 
 export const getDailyQuote = async () => {
+  // Get quote from async storage
   const dailyQuote = await AsyncStorage.getItem("@daily_quote");
 
   if (dailyQuote !== null) {
+    // If quote is stored in async storage return it
     return JSON.parse(dailyQuote);
   } else {
+    // If no quote is stored in async storage, store and return deafult quote
     storeQuoteToAsyncStorage({
       text: "Life is long if you know how to use it.",
       author: "Seneca",
@@ -63,12 +66,14 @@ export const getDailyQuote = async () => {
   }
 };
 
-export const scheduleNotification = async () => {
+export const scheduleNotification = async (newQuote?: any) => {
+  // Cancel previous notification from async storage
   await Notifications.cancelAllScheduledNotificationsAsync();
 
   let minute = 0;
   let hour = 8;
 
+  // TODO: Can maybe pass this in?
   getNotificationDate()
     .then((updatedNotificationDate) => {
       if (updatedNotificationDate) {
@@ -77,31 +82,43 @@ export const scheduleNotification = async () => {
       }
     })
     .then(() => {
-      getDailyQuote().then((dailyQuote: any) => {
-        const dailyQuoteMessage = dailyQuote.text;
-        const dailyQuoteAuthor = dailyQuote.author;
+      let dailyQuoteMessage;
+      let dailyQuoteAuthor;
 
-        const schedulingOptions = {
-          content: {
-            title: "Stoic Quotes App",
-            body: dailyQuoteMessage + " - " + dailyQuoteAuthor,
-            sound: true,
-            priority: Notifications.AndroidNotificationPriority.HIGH,
-            // color: "blue",
-          },
-          trigger: {
-            // seconds: 3,
-            hour: hour,
-            minute: minute,
-            repeats: true,
-          },
-        };
-        Notifications.scheduleNotificationAsync(schedulingOptions);
-      });
+      if (newQuote !== undefined || null) {
+        // If we have the newQuote use that
+        dailyQuoteMessage = newQuote.text;
+        dailyQuoteAuthor = newQuote.author;
+      } else {
+        // If we don't have newQuote then get it from async storage
+        // TODO: Can remove this and always pass in 'newQuote' in props
+        getDailyQuote().then((dailyQuote: any) => {
+          dailyQuoteMessage = dailyQuote.text;
+          dailyQuoteAuthor = dailyQuote.author;
+        });
+      }
+
+      const schedulingOptions = {
+        content: {
+          title: "Stoic Quotes App",
+          body: dailyQuoteMessage + " - " + dailyQuoteAuthor,
+          sound: true,
+          priority: Notifications.AndroidNotificationPriority.HIGH,
+          // color: "blue",
+        },
+        trigger: {
+          // seconds: 3,
+          hour: hour,
+          minute: minute,
+          repeats: true,
+        },
+      };
+      Notifications.scheduleNotificationAsync(schedulingOptions);
     });
 };
 
 export const storeQuoteToAsyncStorage = async (newQuote?: any) => {
+  // If newQuote isn't passed in, generate and return a new one
   if (!newQuote || newQuote === null) {
     const retrievedQuotes = data.quotes;
     const randomIndex = Math.floor(Math.random() * retrievedQuotes.length);
@@ -109,9 +126,11 @@ export const storeQuoteToAsyncStorage = async (newQuote?: any) => {
   }
 
   try {
+    // Store the new quote in async storage
     await AsyncStorage.setItem("@daily_quote", JSON.stringify(newQuote)).then(
       () => {
-        scheduleNotification;
+        // Schedule notification with the new quote
+        scheduleNotification(newQuote);
       }
     );
   } catch (e) {
@@ -139,7 +158,9 @@ TaskManager.defineTask(BACKGROUND_FETCH_TASK, async () => {
   const pastDay = await AsyncStorage.getItem("@past_day");
 
   if (pastDay !== null) {
+    // If we are in the next day, store a new quote and update the current day in Async Storage
     if (Number(pastDay) < Number(currentDay)) {
+      //get new quote
       storeQuoteToAsyncStorage();
       storeCurrentDayToAsyncStorage(Number(currentDay));
     }

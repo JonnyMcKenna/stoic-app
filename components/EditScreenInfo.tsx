@@ -16,6 +16,7 @@ import data from "../quotes.json";
 import "./QuoteScreenAsyncStorage";
 
 export default function EditScreenInfo() {
+  // On Load - Ensure that background fetch is in sync and get todays quote
   useEffect(() => {
     checkStatusAsync();
     toggleFetchTask();
@@ -28,12 +29,14 @@ export default function EditScreenInfo() {
   const [quote, setQuote] = useState<QuoteProps>();
 
   const checkStatusAsync = async () => {
+    // Check if background fetch is registered and syced
     const isRegistered = await TaskManager.isTaskRegisteredAsync(
       BACKGROUND_FETCH_TASK
     );
     setIsRegistered(isRegistered);
   };
 
+  // Ensure background fetch is registered
   const toggleFetchTask = async () => {
     if (isRegistered) {
       await unregisterBackgroundFetchAsync();
@@ -43,6 +46,7 @@ export default function EditScreenInfo() {
     checkStatusAsync();
   };
 
+  // Get, set and store new quote to async storage
   function updateQuote() {
     const retrievedQuotes = data.quotes;
     const randomIndex = Math.floor(Math.random() * retrievedQuotes.length);

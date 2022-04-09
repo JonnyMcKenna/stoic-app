@@ -50,7 +50,7 @@ export default function App() {
   useEffect(() => {
     setTimeout(() => {
       setShowSplash(false);
-    }, 4000);
+    }, 1000);
 
     if (notificationPermissions !== PermissionStatus.GRANTED) return;
     const listener =

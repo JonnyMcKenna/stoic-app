@@ -87,14 +87,14 @@ const SettingsComponent = () => {
           settingsStyles.container,
           {
             flexDirection: "column",
-            backgroundColor: "white",
+            backgroundColor: "#181A20",
           },
         ]}
       >
         <View style={{}}>
           <Text
             style={{
-              color: "black",
+              color: "#EAECEF",
               marginTop: 0,
               fontSize: 16,
               fontWeight: "bold",
@@ -127,7 +127,7 @@ const SettingsComponent = () => {
               <CheckBox
                 checked={isSelected}
                 onPress={() => onDailyChange(isSelected, date)}
-                checkedColor="black"
+                checkedColor="#EAECEF"
               />
             </View>
           </View>
@@ -153,7 +153,7 @@ const SettingsComponent = () => {
             value={date}
             mode={"time"}
             is24Hour={true}
-            display="default"
+            display="spinner"
             onChange={onChange}
             themeVariant="dark"
           />
@@ -168,7 +168,7 @@ const SettingsComponent = () => {
         <View style={{}}>
           <Text
             style={{
-              color: "black",
+              color: "#EAECEF",
               marginTop: 0,
               fontSize: 16,
               fontWeight: "bold",
@@ -189,7 +189,7 @@ const SettingsComponent = () => {
         <View style={{}}>
           <Text
             style={{
-              color: "black",
+              color: "#EAECEF",
               marginTop: 0,
               fontSize: 16,
               fontWeight: "bold",

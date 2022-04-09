@@ -17,7 +17,7 @@ export default function TabOneScreen({
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: "white",
+    backgroundColor: "#181A20",
     flex: 1,
     alignItems: "center",
     justifyContent: "center",
@@ -25,7 +25,7 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 20,
     fontWeight: "bold",
-    color: "black",
+    color: "#EAECEF",
   },
   separator: {
     marginVertical: 30,

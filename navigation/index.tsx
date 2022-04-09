@@ -55,9 +55,10 @@ function BottomTabNavigator() {
       screenOptions={{
         tabBarActiveTintColor: "white",
         tabBarStyle: {
-          backgroundColor: "black",
-          height: "9%",
-          borderTopColor: "black",
+          backgroundColor: "#181A20",
+          height: "8%",
+          borderTopColor: "#181A20",
+          paddingBottom: 5,
         },
       }}
     >
@@ -70,11 +71,11 @@ function BottomTabNavigator() {
             fontSize: 18,
             marginTop: 10,
             marginBottom: 10,
-            color: "white",
+            color: "#848E9C",
           },
-          tabBarLabel: "",
+          tabBarLabel: "Home",
           headerStyle: {
-            backgroundColor: "black",
+            backgroundColor: "#181A20",
           },
           tabBarIcon: ({ color }) => <TabBarIcon name="home" color={color} />,
         })}
@@ -88,10 +89,10 @@ function BottomTabNavigator() {
             fontSize: 18,
             marginTop: 10,
             marginBottom: 10,
-            color: "white",
+            color: "#848E9C",
           },
-          headerStyle: { backgroundColor: "black" },
-          tabBarLabel: "",
+          headerStyle: { backgroundColor: "#181A20" },
+          tabBarLabel: "Settings",
           tabBarIcon: ({ color }) => <TabBarIcon name="cog" color={color} />,
         }}
       />

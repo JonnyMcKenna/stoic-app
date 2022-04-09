@@ -24,7 +24,7 @@ const SettingsRowChecklistComponent = ({
           <CheckBox
             checked={isSelected}
             onPress={() => setSelection(!isSelected)}
-            checkedColor="black"
+            checkedColor="#EAECEF"
           />
         </View>
       </View>
@@ -37,8 +37,8 @@ const containerStyle = StyleSheet.create({
     marginTop: 30,
     flexDirection: "row",
   },
-  heading: { fontSize: 16, fontWeight: "500", color: "black" },
-  description: { fontSize: 14, fontWeight: "300", color: "gray" },
+  heading: { fontSize: 16, fontWeight: "500", color: "#EAECEF" },
+  description: { fontSize: 14, fontWeight: "300", color: "#848E9C" },
   checkbox: {
     width: "20%",
     justifyContent: "center",

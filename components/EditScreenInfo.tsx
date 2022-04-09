@@ -56,27 +56,31 @@ export default function EditScreenInfo() {
   }
 
   return (
-    <ScrollView style={homeScreenStyles.scrollViewStyle}>
-      <View style={homeScreenStyles.getStartedContainer}>
-        <View
-          style={[
-            homeScreenStyles.codeHighlightContainer,
-            homeScreenStyles.homeScreenFilename,
-          ]}
-          darkColor="rgba(255,255,255,0.05)"
-          lightColor="rgba(0,0,0,0.05)"
-        ></View>
-      </View>
+    <Fragment>
+      <ScrollView style={homeScreenStyles.scrollViewStyle}>
+        <View style={homeScreenStyles.getStartedContainer}>
+          <View
+            style={[
+              homeScreenStyles.codeHighlightContainer,
+              homeScreenStyles.homeScreenFilename,
+            ]}
+            darkColor="rgba(255,255,255,0.05)"
+            lightColor="rgba(0,0,0,0.05)"
+          ></View>
+        </View>
 
-      <View style={homeScreenStyles.container}>
-        {quote && (
-          <Fragment>
-            <Text style={homeScreenStyles.quoteText}>"{quote.text}"</Text>
-            <Text style={homeScreenStyles.quoteAuthor}>- {quote.author}</Text>
-            <NewButton onPress={updateQuote} title="New Quote" />
-          </Fragment>
-        )}
+        <View style={homeScreenStyles.container}>
+          {quote && (
+            <Fragment>
+              <Text style={homeScreenStyles.quoteText}>"{quote.text}"</Text>
+              <Text style={homeScreenStyles.quoteAuthor}>- {quote.author}</Text>
+            </Fragment>
+          )}
+        </View>
+      </ScrollView>
+      <View style={homeScreenStyles.buttonViewContainer}>
+        <NewButton onPress={updateQuote} title="New Quote" />
       </View>
-    </ScrollView>
+    </Fragment>
   );
 }

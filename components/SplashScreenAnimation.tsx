@@ -7,6 +7,7 @@ export default function SimpleAnimation() {
     <Modal visible={true} animationType="fade">
       <View style={splashScreenStyles.container}>
         <Text style={splashScreenStyles.quoteText}>Stoic Quotes App</Text>
+        <Text style={splashScreenStyles.taglineText}>Tagline</Text>
       </View>
       {/* 
       <LottieView
@@ -21,11 +22,16 @@ export default function SimpleAnimation() {
 export const splashScreenStyles = StyleSheet.create({
   quoteText: {
     fontSize: 26,
-    color: "black",
+    color: "#EAECEF",
+  },
+  taglineText: {
+    marginTop: 10,
+    fontSize: 18,
+    color: "#848E9C",
   },
   container: {
     flex: 1,
-    backgroundColor: "white",
+    backgroundColor: "#181A20",
     justifyContent: "center",
     alignItems: "center",
   },

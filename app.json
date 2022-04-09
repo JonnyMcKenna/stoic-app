@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "stoic-quotes-app",
-    "slug": "stoic-quotes-app",
+    "name": "Daily Stoic",
+    "slug": "Daily-Stoic",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
@@ -10,7 +10,7 @@
     "splash": {
       "image": "./assets/images/splash.png",
       "resizeMode": "contain",
-      "backgroundColor": "#ffffff"
+      "backgroundColor": "#181A20"
     },
     "updates": {
       "fallbackToCacheTimeout": 0

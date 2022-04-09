@@ -4,6 +4,7 @@ import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import * as React from "react";
 import "expo-asset";
+import { createMaterialBottomTabNavigator } from "@react-navigation/material-bottom-tabs";
 
 import ModalScreen from "../screens/ModalScreen";
 import NotFoundScreen from "../screens/NotFoundScreen";
@@ -46,52 +47,61 @@ function RootNavigator() {
   );
 }
 
-const BottomTab = createBottomTabNavigator<RootTabParamList>();
+// const BottomTab = createBottomTabNavigator<RootTabParamList>();
+
+const BottomTab = createMaterialBottomTabNavigator();
 
 function BottomTabNavigator() {
   return (
     <BottomTab.Navigator
       initialRouteName="TabOne"
-      screenOptions={{
-        tabBarActiveTintColor: "white",
-        tabBarStyle: {
-          backgroundColor: "#181A20",
-          height: "8%",
-          borderTopColor: "#181A20",
-          paddingBottom: 5,
-        },
-      }}
+      activeColor="#EAECEF"
+      inactiveColor="#848E9C"
+      barStyle={{ backgroundColor: "#181A20" }}
+      screenOptions={
+        {
+          // tabBarActiveTintColor: "white",
+          // tabBarStyle: {
+          //   backgroundColor: "#181A20",
+          //   height: "8%",
+          //   borderTopColor: "#181A20",
+          //   paddingBottom: 5,
+          // },
+        }
+      }
     >
       <BottomTab.Screen
-        name="TabOne"
+        name="Home"
         component={TabOneScreen}
-        options={({ navigation }: RootTabScreenProps<"TabOne">) => ({
-          headerTitle: "Stoic Quotes",
-          headerTitleStyle: {
-            fontSize: 18,
-            marginTop: 10,
-            marginBottom: 10,
-            color: "#848E9C",
-          },
-          tabBarLabel: "Home",
-          headerStyle: {
-            backgroundColor: "#181A20",
-          },
+        options={{
+          // ({ navigation }: RootTabScreenProps<"TabOne">) => ({
+          //   headerTitle: "Stoic Quotes",
+          //   headerTitleStyle: {
+          //     fontSize: 18,
+          //     marginTop: 10,
+          //     marginBottom: 10,
+          //     color: "#848E9C",
+          //   },
+          //   tabBarLabel: "Home",
+          //   headerStyle: {
+          //     backgroundColor: "#181A20",
+          //   },
           tabBarIcon: ({ color }) => <TabBarIcon name="home" color={color} />,
-        })}
+          // })
+        }}
       />
       <BottomTab.Screen
         name="TabTwo"
         component={TabTwoScreen}
         options={{
-          headerTitle: "Settings",
-          headerTitleStyle: {
-            fontSize: 18,
-            marginTop: 10,
-            marginBottom: 10,
-            color: "#848E9C",
-          },
-          headerStyle: { backgroundColor: "#181A20" },
+          // headerTitle: "Settings",
+          // headerTitleStyle: {
+          //   fontSize: 18,
+          //   marginTop: 10,
+          //   marginBottom: 10,
+          //   color: "#848E9C",
+          // },
+          // headerStyle: { backgroundColor: "#181A20" },
           tabBarLabel: "Settings",
           tabBarIcon: ({ color }) => <TabBarIcon name="cog" color={color} />,
         }}

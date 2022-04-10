@@ -1,4 +1,4 @@
-import React, { Fragment, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   Text,
   View,
@@ -9,8 +9,8 @@ import {
   Animated,
   Easing,
 } from "react-native";
+import BouncyCheckbox from "react-native-bouncy-checkbox";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import { CheckBox } from "react-native-elements";
 import RNDateTimePicker from "@react-native-community/datetimepicker";
 import { View as ThemeView } from "../components/Themed";
 import SettingsRowChecklistComponent from "./SettingsRowChecklistComponent";
@@ -140,10 +140,13 @@ const SettingsComponent = () => {
                 </Text>
               </View>
               <View style={settingsRowChecklistStyle.checkbox}>
-                <CheckBox
-                  checked={isSelected}
+                <BouncyCheckbox
+                  isChecked={isSelected}
+                  size={30}
+                  fillColor="#181A20"
+                  unfillColor="#EAECEF"
+                  iconStyle={{ borderColor: "#EAECEF" }}
                   onPress={() => onDailyChange(isSelected, date)}
-                  checkedColor="#EAECEF"
                 />
               </View>
             </View>

@@ -1,5 +1,5 @@
-import React, { Fragment, useEffect, useState } from "react";
-import { Easing, ScrollView, Animated } from "react-native";
+import React, { useEffect, useState } from "react";
+import { ScrollView, Animated } from "react-native";
 import NewButton from "./NewButton";
 import { Text, View } from "./Themed";
 import * as TaskManager from "expo-task-manager";
@@ -19,10 +19,16 @@ export default function EditScreenInfo() {
   // On Load - Ensure that background fetch is in sync and get todays quote
 
   const [fadeAnim] = useState(new Animated.Value(0));
-  const [fadeAnimQuote] = useState(new Animated.Value(1));
+  const [fadeAnimQuote] = useState(new Animated.Value(0));
 
   useEffect(() => {
     Animated.timing(fadeAnim, {
+      toValue: 1,
+      duration: 1000,
+      useNativeDriver: false,
+    }).start();
+
+    Animated.timing(fadeAnimQuote, {
       toValue: 1,
       duration: 1500,
       useNativeDriver: false,
@@ -87,8 +93,6 @@ export default function EditScreenInfo() {
       <ScrollView style={homeScreenStyles.scrollViewStyle}>
         <View style={homeScreenStyles.container}>
           {quote && (
-            // <Fragment>
-
             <Animated.View
               style={{
                 opacity: fadeAnimQuote,

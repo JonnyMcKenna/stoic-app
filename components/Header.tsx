@@ -19,7 +19,7 @@ const headerStyles = StyleSheet.create({
     backgroundColor: "#181A20",
     height: 80,
     position: "absolute",
-    top: 0,
+    top: 20,
     width: "100%",
     zIndex: 100,
     // paddingBottom: 20,

@@ -9,7 +9,7 @@ import {
 } from "react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { CheckBox } from "react-native-elements";
-import DateTimePicker from "@react-native-community/datetimepicker";
+import RNDateTimePicker from "@react-native-community/datetimepicker";
 import { View as ThemeView } from "../components/Themed";
 import SettingsRowChecklistComponent from "./SettingsRowChecklistComponent";
 import SettingsRowComponent from "./SettingsRowComponent";
@@ -150,7 +150,7 @@ const SettingsComponent = () => {
           )}
 
           {open && (
-            <DateTimePicker
+            <RNDateTimePicker
               testID="dateTimePicker"
               value={date}
               mode={"time"}

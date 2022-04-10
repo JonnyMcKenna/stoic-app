@@ -4,7 +4,17 @@ import { Text, StyleSheet, Pressable } from "react-native";
 export default function NewButton(props: any) {
   const { onPress, title = "Save" } = props;
   return (
-    <Pressable style={styles.button} onPress={onPress}>
+    <Pressable
+      android_ripple={{ color: "#848E9C" }}
+      style={({ pressed }) => [
+        {
+          //Might need this again for ios?
+          // backgroundColor: pressed ? "#848E9C" : "#EAECEF",
+        },
+        styles.button,
+      ]}
+      onPress={onPress}
+    >
       <Text style={styles.text}>{title}</Text>
     </Pressable>
   );
@@ -18,8 +28,10 @@ const styles = StyleSheet.create({
     paddingHorizontal: 32,
     borderRadius: 4,
     elevation: 5,
-    backgroundColor: "#848E9C",
+    backgroundColor: "#EAECEF",
     width: "80%",
+    position: "absolute",
+    bottom: 0,
   },
   text: {
     fontSize: 16,

@@ -6,6 +6,8 @@ import {
   ScrollView,
   Linking,
   Platform,
+  Animated,
+  Easing,
 } from "react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { CheckBox } from "react-native-elements";
@@ -29,7 +31,15 @@ import {
 import Header from "./Header";
 
 const SettingsComponent = () => {
+  const [fadeAnim] = useState(new Animated.Value(0));
+
   useEffect(() => {
+    Animated.timing(fadeAnim, {
+      toValue: 1,
+      duration: 1500,
+      easing: Easing.bounce,
+      useNativeDriver: false,
+    }).start();
     getNotificationDate().then((parsedNotificationDate) => {
       if (parsedNotificationDate) {
         setDate(parsedNotificationDate);
@@ -82,7 +92,11 @@ const SettingsComponent = () => {
   var hours = addZeroBefore(date.getHours());
 
   return (
-    <Fragment>
+    <Animated.View
+      style={{
+        opacity: fadeAnim,
+      }}
+    >
       {/* <Header /> */}
       <ScrollView>
         <View
@@ -254,7 +268,7 @@ const SettingsComponent = () => {
           />
         </View>
       </ScrollView>
-    </Fragment>
+    </Animated.View>
   );
 };
 

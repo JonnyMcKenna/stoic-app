@@ -1,5 +1,5 @@
 import React, { Fragment, useEffect, useState } from "react";
-import { ScrollView } from "react-native";
+import { Easing, ScrollView, Animated } from "react-native";
 import NewButton from "./NewButton";
 import { Text, View } from "./Themed";
 import * as TaskManager from "expo-task-manager";
@@ -18,7 +18,17 @@ import Header from "./Header";
 
 export default function EditScreenInfo() {
   // On Load - Ensure that background fetch is in sync and get todays quote
+
+  const [fadeAnim] = useState(new Animated.Value(0));
+
   useEffect(() => {
+    Animated.timing(fadeAnim, {
+      toValue: 1,
+      duration: 1500,
+      easing: Easing.bounce,
+      useNativeDriver: false,
+    }).start();
+
     checkStatusAsync();
     toggleFetchTask();
     getDailyQuote().then((dailyQuote: any) => {
@@ -57,7 +67,13 @@ export default function EditScreenInfo() {
   }
 
   return (
-    <Fragment>
+    <Animated.View
+      style={{
+        opacity: fadeAnim,
+        height: "80%",
+        width: "100%",
+      }}
+    >
       {/* <Header /> */}
       <ScrollView style={homeScreenStyles.scrollViewStyle}>
         <View style={homeScreenStyles.container}>
@@ -72,6 +88,6 @@ export default function EditScreenInfo() {
       <View style={homeScreenStyles.buttonViewContainer}>
         <NewButton onPress={updateQuote} title="New Quote" />
       </View>
-    </Fragment>
+    </Animated.View>
   );
 }

@@ -26,7 +26,7 @@ export const homeScreenStyles = StyleSheet.create({
     textAlign: "center",
   },
   container: {
-    marginTop: 40,
+    // marginTop: 40,
     flex: 1,
     backgroundColor: "#181A20",
     marginRight: 40,
@@ -39,8 +39,8 @@ export const homeScreenStyles = StyleSheet.create({
     color: "#EAECEF",
   },
   quoteAuthor: {
-    marginTop: 30,
-    marginBottom: 80,
+    marginTop: 50,
+    marginBottom: 50,
     fontSize: 18,
     fontWeight: "600",
     color: "#848E9C",
@@ -52,7 +52,7 @@ export const homeScreenStyles = StyleSheet.create({
     backgroundColor: "#181A20",
     alignItems: "center",
     justifyContent: "center",
-    height: 100,
+    height: 80,
     position: "absolute",
     bottom: 0,
     width: "100%",

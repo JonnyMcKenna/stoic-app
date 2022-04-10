@@ -28,7 +28,6 @@ import {
   settingsRowChecklistStyle,
   settingsStyles,
 } from "../styles/settingsComponentStyle";
-import Header from "./Header";
 
 const SettingsComponent = () => {
   const [fadeAnim] = useState(new Animated.Value(0));
@@ -95,9 +94,10 @@ const SettingsComponent = () => {
     <Animated.View
       style={{
         opacity: fadeAnim,
+        height: "85%",
+        width: "100%",
       }}
     >
-      {/* <Header /> */}
       <ScrollView>
         <View
           style={[
@@ -142,8 +142,10 @@ const SettingsComponent = () => {
               <View style={settingsRowChecklistStyle.checkbox}>
                 <BouncyCheckbox
                   isChecked={isSelected}
-                  size={30}
+                  size={25}
+                  style={{ marginLeft: 30, padding: 0 }}
                   fillColor="#181A20"
+                  disableBuiltInState
                   unfillColor="#EAECEF"
                   iconStyle={{ borderColor: "#EAECEF" }}
                   onPress={() => onDailyChange(isSelected, date)}

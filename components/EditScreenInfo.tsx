@@ -14,18 +14,17 @@ import { QuoteProps } from "../types/genericTypes";
 import { homeScreenStyles } from "../styles/homeScreen";
 import data from "../quotes.json";
 import "./QuoteScreenAsyncStorage";
-import Header from "./Header";
 
 export default function EditScreenInfo() {
   // On Load - Ensure that background fetch is in sync and get todays quote
 
   const [fadeAnim] = useState(new Animated.Value(0));
+  const [fadeAnimQuote] = useState(new Animated.Value(1));
 
   useEffect(() => {
     Animated.timing(fadeAnim, {
       toValue: 1,
       duration: 1500,
-      easing: Easing.bounce,
       useNativeDriver: false,
     }).start();
 
@@ -59,29 +58,45 @@ export default function EditScreenInfo() {
 
   // Get, set and store new quote to async storage
   function updateQuote() {
+    Animated.timing(fadeAnimQuote, {
+      toValue: 0,
+      duration: 0,
+      useNativeDriver: false,
+    }).start();
     const retrievedQuotes = data.quotes;
     const randomIndex = Math.floor(Math.random() * retrievedQuotes.length);
     const newQuote = retrievedQuotes[randomIndex];
     setQuote(newQuote);
     storeQuoteToAsyncStorage(newQuote);
+    Animated.timing(fadeAnimQuote, {
+      toValue: 1,
+      duration: 1000,
+      // easing: Easing.bounce,
+      useNativeDriver: false,
+    }).start();
   }
 
   return (
     <Animated.View
       style={{
         opacity: fadeAnim,
-        height: "80%",
+        height: "85%",
         width: "100%",
       }}
     >
-      {/* <Header /> */}
       <ScrollView style={homeScreenStyles.scrollViewStyle}>
         <View style={homeScreenStyles.container}>
           {quote && (
-            <Fragment>
+            // <Fragment>
+
+            <Animated.View
+              style={{
+                opacity: fadeAnimQuote,
+              }}
+            >
               <Text style={homeScreenStyles.quoteText}>"{quote.text}"</Text>
               <Text style={homeScreenStyles.quoteAuthor}>- {quote.author}</Text>
-            </Fragment>
+            </Animated.View>
           )}
         </View>
       </ScrollView>

@@ -68,8 +68,8 @@ export default function App() {
       </SafeAreaProvider>
     ) : (
       <SafeAreaProvider>
-        <BannerAd />
         <Navigation />
+        <BannerAd />
         <StatusBar />
       </SafeAreaProvider>
     );

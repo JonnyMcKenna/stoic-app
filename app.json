@@ -24,6 +24,9 @@
         "foregroundImage": "./assets/images/adaptive-icon.png",
         "backgroundColor": "#ffffff"
       },
+      "config": {
+        "googleMobileAdsAppId": "ca-app-pub-8720230404543468~9172397374"
+      },
       "package": "com.jonnymckenna.stoicquotesapp"
     },
     "web": {

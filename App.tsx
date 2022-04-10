@@ -7,6 +7,7 @@ import Navigation from "./navigation";
 import * as Notifications from "expo-notifications";
 import SplashScreenAnimation from "./components/SplashScreenAnimation";
 import { LogBox } from "react-native";
+import BannerAd from "./components/BannerAd";
 
 LogBox.ignoreLogs(["Remote debugger"]);
 
@@ -67,6 +68,7 @@ export default function App() {
       </SafeAreaProvider>
     ) : (
       <SafeAreaProvider>
+        <BannerAd />
         <Navigation />
         <StatusBar />
       </SafeAreaProvider>

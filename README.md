@@ -52,6 +52,11 @@ Run on Web:
 
 - expo start --web
 
+Ad using Google AdMov:
+
+- https://www.crowdbotics.com/blog/how-to-implement-admob-in-react-native
+- https://developers.google.com/admob/android/native/start
+
 TODO:
 
 - Update design

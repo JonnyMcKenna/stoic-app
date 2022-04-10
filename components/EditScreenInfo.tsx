@@ -14,6 +14,7 @@ import { QuoteProps } from "../types/genericTypes";
 import { homeScreenStyles } from "../styles/homeScreen";
 import data from "../quotes.json";
 import "./QuoteScreenAsyncStorage";
+import Header from "./Header";
 
 export default function EditScreenInfo() {
   // On Load - Ensure that background fetch is in sync and get todays quote
@@ -57,18 +58,8 @@ export default function EditScreenInfo() {
 
   return (
     <Fragment>
+      {/* <Header /> */}
       <ScrollView style={homeScreenStyles.scrollViewStyle}>
-        <View style={homeScreenStyles.getStartedContainer}>
-          <View
-            style={[
-              homeScreenStyles.codeHighlightContainer,
-              homeScreenStyles.homeScreenFilename,
-            ]}
-            darkColor="rgba(255,255,255,0.05)"
-            lightColor="rgba(0,0,0,0.05)"
-          ></View>
-        </View>
-
         <View style={homeScreenStyles.container}>
           {quote && (
             <Fragment>

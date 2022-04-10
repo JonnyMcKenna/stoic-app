@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { Fragment, useEffect, useState } from "react";
 import {
   Text,
   View,
@@ -26,6 +26,7 @@ import {
   settingsRowChecklistStyle,
   settingsStyles,
 } from "../styles/settingsComponentStyle";
+import Header from "./Header";
 
 const SettingsComponent = () => {
   useEffect(() => {
@@ -81,30 +82,31 @@ const SettingsComponent = () => {
   var hours = addZeroBefore(date.getHours());
 
   return (
-    <ScrollView>
-      <View
-        style={[
-          settingsStyles.container,
-          {
-            flexDirection: "column",
-            backgroundColor: "#181A20",
-          },
-        ]}
-      >
-        <View style={{}}>
-          <Text
-            style={{
-              color: "#EAECEF",
-              marginTop: 0,
-              fontSize: 16,
-              fontWeight: "bold",
-            }}
-          >
-            Notifications
-          </Text>
-        </View>
+    <Fragment>
+      {/* <Header /> */}
+      <ScrollView>
+        <View
+          style={[
+            settingsStyles.container,
+            {
+              flexDirection: "column",
+            },
+          ]}
+        >
+          <View style={{}}>
+            <Text
+              style={{
+                color: "#EAECEF",
+                marginTop: 0,
+                fontSize: 16,
+                fontWeight: "bold",
+              }}
+            >
+              Notifications
+            </Text>
+          </View>
 
-        {/* <SettingsRowChecklistComponent
+          {/* <SettingsRowChecklistComponent
           heading={"Daily"}
           description={
             "If selected daily notification of a randomly selected quote will show up."
@@ -113,108 +115,108 @@ const SettingsComponent = () => {
           setSelection={setSelection}
         /> */}
 
-        <TouchableOpacity onPress={() => setSelection(!isSelected)}>
-          <View style={settingsContainerStyle.rowContainer}>
-            <View style={{ width: "80%" }}>
-              <Text style={settingsRowChecklistStyle.heading}>{"Daily"}</Text>
-              <Text style={settingsRowChecklistStyle.description}>
-                {
-                  "If selected daily notification of a randomly selected quote will show up."
-                }
-              </Text>
+          <TouchableOpacity onPress={() => setSelection(!isSelected)}>
+            <View style={settingsContainerStyle.rowContainer}>
+              <View style={{ width: "80%" }}>
+                <Text style={settingsRowChecklistStyle.heading}>{"Daily"}</Text>
+                <Text style={settingsRowChecklistStyle.description}>
+                  {
+                    "If selected daily notification of a randomly selected quote will show up."
+                  }
+                </Text>
+              </View>
+              <View style={settingsRowChecklistStyle.checkbox}>
+                <CheckBox
+                  checked={isSelected}
+                  onPress={() => onDailyChange(isSelected, date)}
+                  checkedColor="#EAECEF"
+                />
+              </View>
             </View>
-            <View style={settingsRowChecklistStyle.checkbox}>
-              <CheckBox
-                checked={isSelected}
-                onPress={() => onDailyChange(isSelected, date)}
-                checkedColor="#EAECEF"
-              />
-            </View>
-          </View>
-        </TouchableOpacity>
+          </TouchableOpacity>
 
-        {isSelected && (
-          <TouchableOpacity onPress={() => setOpen(!open)}>
+          {isSelected && (
+            <TouchableOpacity onPress={() => setOpen(!open)}>
+              <SettingsRowComponent
+                heading={"Delivery Time"}
+                description={
+                  "When do you want your daily dose? Currently at " +
+                  hours +
+                  ":" +
+                  minutes
+                }
+              />
+            </TouchableOpacity>
+          )}
+
+          {open && (
+            <DateTimePicker
+              testID="dateTimePicker"
+              value={date}
+              mode={"time"}
+              is24Hour={true}
+              display="spinner"
+              onChange={onChange}
+              themeVariant="dark"
+            />
+          )}
+
+          <ThemeView
+            style={settingsStyles.separator}
+            lightColor="lightgray"
+            darkColor="rgba(255,255,255,0.1)"
+          />
+
+          <View style={{}}>
+            <Text
+              style={{
+                color: "#EAECEF",
+                marginTop: 0,
+                fontSize: 16,
+                fontWeight: "bold",
+              }}
+            >
+              Share
+            </Text>
+          </View>
+
+          <ShareApp />
+
+          <ThemeView
+            style={settingsStyles.separator}
+            lightColor="lightgray"
+            darkColor="rgba(255,255,255,0.1)"
+          />
+
+          <View style={{}}>
+            <Text
+              style={{
+                color: "#EAECEF",
+                marginTop: 0,
+                fontSize: 16,
+                fontWeight: "bold",
+              }}
+            >
+              The Stoic
+            </Text>
+          </View>
+
+          <TouchableOpacity
+            onPress={() =>
+              Linking.openURL(
+                "https://paypal.me/jonnycmckenna?country.x=GB&locale.x=en_GB"
+              ).catch((err) => console.error("Error", err))
+            }
+          >
             <SettingsRowComponent
-              heading={"Delivery Time"}
+              heading={"Support Development"}
               description={
-                "When do you want your daily dose? Currently at " +
-                hours +
-                ":" +
-                minutes
+                "If you really like The Stoic, consider supporting its development by sending a couple of pounds my way!"
               }
             />
           </TouchableOpacity>
-        )}
 
-        {open && (
-          <DateTimePicker
-            testID="dateTimePicker"
-            value={date}
-            mode={"time"}
-            is24Hour={true}
-            display="spinner"
-            onChange={onChange}
-            themeVariant="dark"
-          />
-        )}
-
-        <ThemeView
-          style={settingsStyles.separator}
-          lightColor="lightgray"
-          darkColor="rgba(255,255,255,0.1)"
-        />
-
-        <View style={{}}>
-          <Text
-            style={{
-              color: "#EAECEF",
-              marginTop: 0,
-              fontSize: 16,
-              fontWeight: "bold",
-            }}
-          >
-            Share
-          </Text>
-        </View>
-
-        <ShareApp />
-
-        <ThemeView
-          style={settingsStyles.separator}
-          lightColor="lightgray"
-          darkColor="rgba(255,255,255,0.1)"
-        />
-
-        <View style={{}}>
-          <Text
-            style={{
-              color: "#EAECEF",
-              marginTop: 0,
-              fontSize: 16,
-              fontWeight: "bold",
-            }}
-          >
-            The Stoic
-          </Text>
-        </View>
-
-        <TouchableOpacity
-          onPress={() =>
-            Linking.openURL(
-              "https://paypal.me/jonnycmckenna?country.x=GB&locale.x=en_GB"
-            ).catch((err) => console.error("Error", err))
-          }
-        >
-          <SettingsRowComponent
-            heading={"Support Development"}
-            description={
-              "If you really like The Stoic, consider supporting its development by sending a couple of pounds my way!"
-            }
-          />
-        </TouchableOpacity>
-
-        {/* <TouchableOpacity
+          {/* <TouchableOpacity
           onPress={() => console.log("Advertisement Free / Pro Version")}
         >
           <SettingsRowComponent
@@ -225,33 +227,34 @@ const SettingsComponent = () => {
           />
         </TouchableOpacity> */}
 
-        {/* <TouchableOpacity onPress={() => console.log("Rate App")}>
+          {/* <TouchableOpacity onPress={() => console.log("Rate App")}>
           <SettingsRowComponent
             heading={"Rate App"}
             description={"If you like The Stoic, feel free to rate it 5 stars"}
           />
         </TouchableOpacity> */}
 
-        <TouchableOpacity
-          onPress={() =>
-            Linking.openURL("mailto:jonathanmckenna123abc@hotmail.com").catch(
-              (err) => console.error("Error", err)
-            )
-          }
-        >
-          <SettingsRowComponent
-            heading={"Report Bug"}
-            description={"Report bugs or request new features."}
-          />
-        </TouchableOpacity>
+          <TouchableOpacity
+            onPress={() =>
+              Linking.openURL("mailto:jonathanmckenna123abc@hotmail.com").catch(
+                (err) => console.error("Error", err)
+              )
+            }
+          >
+            <SettingsRowComponent
+              heading={"Report Bug"}
+              description={"Report bugs or request new features."}
+            />
+          </TouchableOpacity>
 
-        <ThemeView
-          style={settingsStyles.separator}
-          lightColor="lightgray"
-          darkColor="rgba(255,255,255,0.1)"
-        />
-      </View>
-    </ScrollView>
+          <ThemeView
+            style={settingsStyles.separator}
+            lightColor="lightgray"
+            darkColor="rgba(255,255,255,0.1)"
+          />
+        </View>
+      </ScrollView>
+    </Fragment>
   );
 };
 

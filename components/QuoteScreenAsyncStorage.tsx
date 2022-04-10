@@ -89,31 +89,50 @@ export const scheduleNotification = async (newQuote?: any) => {
         // If we have the newQuote use that
         dailyQuoteMessage = newQuote.text;
         dailyQuoteAuthor = newQuote.author;
+
+        //TODO: This code is being duplicated here and below - refactor this.
+        const schedulingOptions = {
+          content: {
+            title: "Stoic Quotes App",
+            body: dailyQuoteMessage + " - " + dailyQuoteAuthor,
+            sound: true,
+            priority: Notifications.AndroidNotificationPriority.HIGH,
+            // color: "blue",
+          },
+          trigger: {
+            // seconds: 3,
+            hour: hour,
+            minute: minute,
+            repeats: true,
+          },
+        };
+        Notifications.scheduleNotificationAsync(schedulingOptions);
       } else {
         // If we don't have newQuote then get it from async storage
         // TODO: Can remove this and always pass in 'newQuote' in props
         getDailyQuote().then((dailyQuote: any) => {
           dailyQuoteMessage = dailyQuote.text;
           dailyQuoteAuthor = dailyQuote.author;
+
+          //TODO: This code is being duplicated here and above - refactor this.
+          const schedulingOptions = {
+            content: {
+              title: "Stoic Quotes App",
+              body: dailyQuoteMessage + " - " + dailyQuoteAuthor,
+              sound: true,
+              priority: Notifications.AndroidNotificationPriority.HIGH,
+              // color: "blue",
+            },
+            trigger: {
+              // seconds: 3,
+              hour: hour,
+              minute: minute,
+              repeats: true,
+            },
+          };
+          Notifications.scheduleNotificationAsync(schedulingOptions);
         });
       }
-
-      const schedulingOptions = {
-        content: {
-          title: "Stoic Quotes App",
-          body: dailyQuoteMessage + " - " + dailyQuoteAuthor,
-          sound: true,
-          priority: Notifications.AndroidNotificationPriority.HIGH,
-          // color: "blue",
-        },
-        trigger: {
-          // seconds: 3,
-          hour: hour,
-          minute: minute,
-          repeats: true,
-        },
-      };
-      Notifications.scheduleNotificationAsync(schedulingOptions);
     });
 };
 

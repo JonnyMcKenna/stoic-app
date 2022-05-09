@@ -94,7 +94,7 @@ const SettingsComponent = () => {
     <Animated.View
       style={{
         opacity: fadeAnim,
-        height: "85%",
+        height: "100%",
         width: "100%",
       }}
     >
@@ -180,13 +180,13 @@ const SettingsComponent = () => {
             />
           )}
 
-          <ThemeView
+          {/* <ThemeView
             style={settingsStyles.separator}
             lightColor="lightgray"
             darkColor="rgba(255,255,255,0.1)"
-          />
+          /> */}
 
-          <View style={{}}>
+          {/* <View style={{}}>
             <Text
               style={{
                 color: "#EAECEF",
@@ -199,7 +199,7 @@ const SettingsComponent = () => {
             </Text>
           </View>
 
-          <ShareApp />
+          <ShareApp /> */}
 
           <ThemeView
             style={settingsStyles.separator}

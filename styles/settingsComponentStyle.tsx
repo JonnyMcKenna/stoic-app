@@ -4,7 +4,7 @@ export const settingsStyles = StyleSheet.create({
   container: {
     flex: 1,
     padding: 20,
-    marginTop: 50,
+    marginTop: "30%",
   },
   separator: {
     marginVertical: 30,

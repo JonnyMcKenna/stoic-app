@@ -26,8 +26,10 @@ export const homeScreenStyles = StyleSheet.create({
     textAlign: "center",
   },
   container: {
-    marginTop: 60,
+    marginTop: "45%",
     flex: 1,
+    alignItems: "center",
+    justifyContent: "center",
     backgroundColor: "#181A20",
     marginRight: 40,
     marginLeft: 40,

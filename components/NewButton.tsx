@@ -6,13 +6,7 @@ export default function NewButton(props: any) {
   return (
     <Pressable
       android_ripple={{ color: "#848E9C" }}
-      style={({ pressed }) => [
-        {
-          //Might need this again for ios?
-          // backgroundColor: pressed ? "#848E9C" : "#EAECEF",
-        },
-        styles.button,
-      ]}
+      style={({}) => [{}, styles.button]}
       onPress={onPress}
     >
       <Text style={styles.text}>{title}</Text>
@@ -24,7 +18,7 @@ const styles = StyleSheet.create({
   button: {
     alignItems: "center",
     justifyContent: "center",
-    paddingVertical: 12,
+    paddingVertical: 15,
     paddingHorizontal: 32,
     borderRadius: 4,
     elevation: 5,
@@ -32,6 +26,7 @@ const styles = StyleSheet.create({
     width: "80%",
     position: "absolute",
     bottom: 0,
+    marginBottom: 10,
   },
   text: {
     fontSize: 16,

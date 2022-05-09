@@ -3,7 +3,6 @@ import { Platform, View } from "react-native";
 import { AdMobBanner } from "expo-ads-admob";
 const BannerAd = () => {
   const unitID = Platform.select({
-    // ios: "ca-app-pub-3940256099942544/2934735716",
     android: "ca-app-pub-8720230404543468/6602074352",
   });
 
@@ -21,8 +20,7 @@ const BannerAd = () => {
       }}
     >
       <AdMobBanner
-        // adUnitID={unitID}
-        adUnitID="ca-app-pub-3940256099942544/6300978111" // Test ID, Replace with your-admob-unit-id
+        adUnitID={unitID}
         bannerSize="fullBanner"
         servePersonalizedAds={false}
         style={{

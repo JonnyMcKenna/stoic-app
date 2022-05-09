@@ -86,11 +86,14 @@ export default function EditScreenInfo() {
     <Animated.View
       style={{
         opacity: fadeAnim,
-        height: "85%",
+        height: "100%",
         width: "100%",
       }}
     >
-      <ScrollView style={homeScreenStyles.scrollViewStyle}>
+      <ScrollView
+        style={homeScreenStyles.scrollViewStyle}
+        persistentScrollbar={true}
+      >
         <View style={homeScreenStyles.container}>
           {quote && (
             <Animated.View

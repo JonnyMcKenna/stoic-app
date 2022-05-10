@@ -50,7 +50,10 @@ function BottomTabNavigator() {
       initialRouteName="TabOne"
       activeColor="#EAECEF"
       inactiveColor="#848E9C"
-      barStyle={{ backgroundColor: "#181A20", width: "100%" }}
+      barStyle={{
+        backgroundColor: "#181A20",
+        width: "100%",
+      }}
     >
       <BottomTab.Screen
         name="Home"

@@ -2,10 +2,6 @@ import React from "react";
 import { Platform, View } from "react-native";
 import { AdMobBanner } from "expo-ads-admob";
 const BannerAd = () => {
-  const unitID = Platform.select({
-    android: "ca-app-pub-8720230404543468/6602074352",
-  });
-
   const bannerError = (error: any) => {
     console.log("Error receiving Ad: " + error);
     return;
@@ -20,9 +16,9 @@ const BannerAd = () => {
       }}
     >
       <AdMobBanner
-        adUnitID={unitID}
+        adUnitID={"ca-app-pub-8720230404543468/6602074352"}
         bannerSize="fullBanner"
-        servePersonalizedAds={false}
+        servePersonalizedAds={true}
         style={{
           position: "absolute",
           bottom: 0,

@@ -26,7 +26,7 @@ export const homeScreenStyles = StyleSheet.create({
     textAlign: "center",
   },
   container: {
-    marginTop: "45%",
+    marginTop: "50%",
     flex: 1,
     alignItems: "center",
     justifyContent: "center",
@@ -36,7 +36,7 @@ export const homeScreenStyles = StyleSheet.create({
     marginBottom: 40,
   },
   quoteText: {
-    fontSize: 25,
+    fontSize: 21,
     textAlign: "left",
     color: "#EAECEF",
   },

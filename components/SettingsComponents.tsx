@@ -9,6 +9,8 @@ import {
   Animated,
   Easing,
 } from "react-native";
+import { FontAwesome } from "@expo/vector-icons";
+
 import BouncyCheckbox from "react-native-bouncy-checkbox";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import RNDateTimePicker from "@react-native-community/datetimepicker";
@@ -271,10 +273,106 @@ const SettingsComponent = () => {
             lightColor="lightgray"
             darkColor="rgba(255,255,255,0.1)"
           />
+
+          <View style={{}}>
+            <Text
+              style={{
+                color: "#EAECEF",
+                marginTop: 0,
+                fontSize: 16,
+                fontWeight: "bold",
+              }}
+            >
+              Connect
+            </Text>
+          </View>
+
+          <TouchableOpacity
+            onPress={() =>
+              Linking.openURL(
+                "https://www.instagram.com/jonny__mckenna/"
+              ).catch((err) => console.error("Error", err))
+            }
+          >
+            <View style={{ marginTop: 30, flexDirection: "row" }}>
+              <TabBarIcon name="instagram" color={"white"} />
+
+              <View style={{ flexDirection: "row", marginLeft: 30 }}>
+                <View>
+                  <Text
+                    style={{
+                      fontSize: 16,
+                      fontWeight: "500",
+                      color: "#EAECEF",
+                    }}
+                  >
+                    {"Instagram"}
+                  </Text>
+                  <Text
+                    style={{
+                      fontSize: 14,
+                      fontWeight: "300",
+                      color: "#848E9C",
+                    }}
+                  >
+                    {"@jonny__mckenna"}
+                  </Text>
+                </View>
+              </View>
+            </View>
+          </TouchableOpacity>
+
+          <TouchableOpacity
+            onPress={() =>
+              Linking.openURL("https://www.jonnymckenna.com/").catch((err) =>
+                console.error("Error", err)
+              )
+            }
+          >
+            <View style={{ marginTop: 30, flexDirection: "row" }}>
+              <TabBarIcon name="laptop" color={"white"} />
+
+              <View style={{ flexDirection: "row", marginLeft: 30 }}>
+                <View>
+                  <Text
+                    style={{
+                      fontSize: 16,
+                      fontWeight: "500",
+                      color: "#EAECEF",
+                    }}
+                  >
+                    {"Website"}
+                  </Text>
+                  <Text
+                    style={{
+                      fontSize: 14,
+                      fontWeight: "300",
+                      color: "#848E9C",
+                    }}
+                  >
+                    {"www.jonnymckenna.com"}
+                  </Text>
+                </View>
+              </View>
+            </View>
+          </TouchableOpacity>
+
+          <ThemeView
+            style={settingsStyles.separator}
+            lightColor="lightgray"
+            darkColor="rgba(255,255,255,0.1)"
+          />
         </View>
       </ScrollView>
     </Animated.View>
   );
 };
+
+function TabBarIcon(props: {
+  name: React.ComponentProps<typeof FontAwesome>["name"];
+  color: string;
+}) {
+  return <FontAwesome size={26} style={{ marginBottom: 0 }} {...props} />;
+}
 
 export default SettingsComponent;

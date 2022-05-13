@@ -93,7 +93,7 @@ export const scheduleNotification = async (newQuote?: any) => {
         //TODO: This code is being duplicated here and below - refactor this.
         const schedulingOptions = {
           content: {
-            title: "Stoic Quotes App",
+            title: "Stoic Mind",
             body: dailyQuoteMessage + " - " + dailyQuoteAuthor,
             sound: true,
             priority: Notifications.AndroidNotificationPriority.HIGH,
@@ -117,7 +117,7 @@ export const scheduleNotification = async (newQuote?: any) => {
           //TODO: This code is being duplicated here and above - refactor this.
           const schedulingOptions = {
             content: {
-              title: "Stoic Quotes App",
+              title: "Stoic Mind",
               body: dailyQuoteMessage + " - " + dailyQuoteAuthor,
               sound: true,
               priority: Notifications.AndroidNotificationPriority.HIGH,

@@ -9,7 +9,7 @@ export default function Header() {
         style={headerStyles.tinyLogo}
         source={require("../assets/images/favicon.png")}
       />
-      <Text style={headerStyles.headerText}>Stoic Quotes App</Text>
+      <Text style={headerStyles.headerText}>Stoic Mind</Text>
     </View>
   );
 }

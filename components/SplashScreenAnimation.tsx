@@ -5,8 +5,8 @@ export default function SimpleAnimation() {
   return (
     <Modal visible={true} animationType="fade">
       <View style={splashScreenStyles.container}>
-        <Text style={splashScreenStyles.quoteText}>Stoic Quotes App</Text>
-        <Text style={splashScreenStyles.taglineText}>Tagline</Text>
+        <Text style={splashScreenStyles.quoteText}>Stoic Mind</Text>
+        <Text style={splashScreenStyles.taglineText}>Embody It</Text>
       </View>
     </Modal>
   );

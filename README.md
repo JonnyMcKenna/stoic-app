@@ -1,6 +1,6 @@
 # stoic-app
 
-React Native - Stoic Quotes App
+React Native - Stoic Mind
 
 # Quotes
 

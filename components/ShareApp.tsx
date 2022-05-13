@@ -5,8 +5,8 @@ const ShareApp = () => {
   const onShare = async () => {
     try {
       const result = await Share.share({
-        title: "Stoic Quotes App",
-        message: "Download the Stoic Quotes App",
+        title: "Stoic Mind",
+        message: "Download the Stoic Mind App - Embody it.",
         url: "https://www.jonnymckenna.com/tech/stoic-quotes-app/",
       });
       if (result.action === Share.sharedAction) {

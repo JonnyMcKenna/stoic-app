@@ -136,9 +136,7 @@ const SettingsComponent = () => {
               <View style={{ width: "80%" }}>
                 <Text style={settingsRowChecklistStyle.heading}>{"Daily"}</Text>
                 <Text style={settingsRowChecklistStyle.description}>
-                  {
-                    "If selected daily notification of a randomly selected quote will show up."
-                  }
+                  {"Be notified daily by a randomly selected quote."}
                 </Text>
               </View>
               <View style={settingsRowChecklistStyle.checkbox}>
@@ -232,7 +230,7 @@ const SettingsComponent = () => {
             <SettingsRowComponent
               heading={"Support Development"}
               description={
-                "If you really like The Stoic, consider supporting its development by sending a couple of pounds my way!"
+                "If you enjoy Stoic Mind, please consider supporting its development with a coffee. Caffeine === Code."
               }
             />
           </TouchableOpacity>
@@ -263,7 +261,7 @@ const SettingsComponent = () => {
             }
           >
             <SettingsRowComponent
-              heading={"Report Bug"}
+              heading={"Contact"}
               description={"Report bugs or request new features."}
             />
           </TouchableOpacity>

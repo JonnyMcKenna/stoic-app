@@ -21,7 +21,7 @@
     "@react-navigation/native": "^6.0.2",
     "@react-navigation/native-stack": "^6.1.0",
     "expo": "^44.0.0",
-    "expo-ads-admob": "~12.0.0",
+    "expo-ads-admob": "^13.0.0",
     "expo-asset": "~8.4.6",
     "expo-background-fetch": "~10.1.0",
     "expo-constants": "~13.0.1",
